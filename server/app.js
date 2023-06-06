@@ -14,8 +14,9 @@ io.on("connection", (socket) => {
     console.log("user disconnected", socket.id);
   });
   socket.on("send-message", (socket) => {
-console.log(socket.message)  
-})
+    console.log(socket.message);
+    io.emit("receive-message", socket)
+  });
 });
 
 httpServer.listen("8080");
