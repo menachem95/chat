@@ -10,10 +10,12 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
   console.log("user connected", socket.id);
-
   socket.on("disconnect", () => {
     console.log("user disconnected", socket.id);
   });
+  socket.on("send-message", (socket) => {
+console.log(socket.message)  
+})
 });
 
 httpServer.listen("8080");
