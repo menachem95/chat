@@ -1,26 +1,38 @@
 import classes from "./Chat.module.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:8080");
 
 const Chat = () => {
   const inputRef = useRef();
-  const [message, setMessage] = useState("") 
-  
-  socket.on("receive-message", (message) => {
-    console.log(message.message)
-  })
+  const [message, setMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
 
-  const sendMessage = () => {
-    console.log("state", message)
-    socket.emit("send-message",
-    //  { message: inputRef.current.value });
-    {message: message})
+  const sendMessage = async () => {
+    console.log(message)
+    await socket.emit(
+      "send-message",
+      //  { message: inputRef.current.value });
+      { message: message }
+    );
     // inputRef.current.value = "";
-  };
+  }
 
- 
+  useEffect(() => {
+    socket.on("receive-message", (data) => {
+      console.log(data)
+      // setMessageList([...messageList, data])
+    })
+  },[socket])
+  
+  // socket.on("receive-message", (message) => {
+  //   console.log(message.message);
+  //   setMessageList([...messageList, message.message]);
+  // });
+
+  
+  
 
   return (
     <div className={classes.main}>
@@ -28,7 +40,9 @@ const Chat = () => {
         <div></div>
       </div>
       <div className={classes.chat}>
-        <div></div>
+        {messageList.map((data) => {
+          return <div>{data.message}</div>;
+        })}
       </div>
       <div className={classes.footer}>
         <input
