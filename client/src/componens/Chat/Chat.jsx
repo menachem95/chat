@@ -24,7 +24,8 @@ const Chat = () => {
       console.log(data)
       // setMessageList([...messageList, data])
     })
-  },[socket])
+    
+  },[])
   
   // socket.on("receive-message", (message) => {
   //   console.log(message.message);
