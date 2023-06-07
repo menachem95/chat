@@ -22,10 +22,10 @@ const Chat = () => {
   useEffect(() => {
     socket.on("receive-message", (data) => {
       console.log(data)
-      // setMessageList([...messageList, data])
+      setMessageList([...messageList, data])
     })
     
-  },[socket.on])
+  },[socket.on, messageList])
   
   // socket.on("receive-message", (message) => {
   //   console.log(message.message);
@@ -41,8 +41,8 @@ const Chat = () => {
         <div></div>
       </div>
       <div className={classes.chat}>
-        {messageList.map((data) => {
-          return <div>{data.message}</div>;
+        {messageList.map((data, i) => {
+          return <div key={i}>{data.message}</div>;
         })}
       </div>
       <div className={classes.footer}>
