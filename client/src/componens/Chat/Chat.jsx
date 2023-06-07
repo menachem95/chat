@@ -25,7 +25,7 @@ const Chat = () => {
       // setMessageList([...messageList, data])
     })
     
-  },[])
+  },[socket.on])
   
   // socket.on("receive-message", (message) => {
   //   console.log(message.message);
@@ -47,6 +47,7 @@ const Chat = () => {
       </div>
       <div className={classes.footer}>
         <input
+        autoFocus
           type="text"
           onChange={(e) => setMessage(e.target.value)}
           // ref={inputRef}
