@@ -1,6 +1,7 @@
 import classes from "./Chat.module.css";
 import { useRef, useState, useEffect } from "react";
 import io from "socket.io-client";
+import Message from "../Message/Message";
 
 const socket = io.connect("http://localhost:8080");
 
@@ -42,7 +43,8 @@ const Chat = () => {
       </div>
       <div className={classes.chat}>
         {messageList.map((data, i) => {
-          return <div key={i}>{data.message}</div>;
+          return <Message key={i} data={data} />
+          
         })}
       </div>
       <div className={classes.footer}>
