@@ -1,9 +1,13 @@
 import Chat from "./componens/Chat/Chat";
+import Login from "./componens/Login/Login";
+
+const loggedIn = false;
 
 function App() {
   return (
     <div>
-   <Chat />
+      {loggedIn ? <Chat /> : <Login />}
+  
     </div>
   );
 }

@@ -1,11 +1,16 @@
 .message {
-  max-width: 70%;
-  min-width: 10%;
+    
+  display: inline-block;
   background-color: beige;
+  margin: 3%;
+  
+  right: 0%;
 }
 
-.date {
+.time {
 }
 
-.author {
+.you {
+    right: 100%;
+    background-color: rgb(20, 49, 197);
 }

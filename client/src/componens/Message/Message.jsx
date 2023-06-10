@@ -1,10 +1,14 @@
 import classes from "./Message.module.css";
 
-const Message = ({ data, author }) => {
+const Message = ({ data, you }) => {
+    
   return (
     <>
-      <div className={`${classes.message} ${author ? classes.author : ""}`}>{data.message}</div>
-      <div className={classes.date}>{data.date}</div>
+      <div className={classes.main}>
+        <div className={`${classes.message , classes.you}`} id={"you"}>{data.message} </div>
+        <div className={classes.time}>{data.time}</div>
+      </div>
+     
     </>
   );
 };

@@ -3,19 +3,23 @@ import { Server } from "socket.io";
 import express from "express";
 import cors from "cors";
 import http from "http";
+import bodyParser from "body-parser";
 
-const httpServer = createServer();
-const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-  },
-  methods: ["GET", "POST"],
-});
+import loginRoute from "./routes/loginRoute.js"
 
-// const app = express();
-// app.use(cors());
-// const server = http.createServer(app);
-// const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"] } });
+// const httpServer = createServer();
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: "*",
+//   },
+//   methods: ["GET", "POST"],
+// });
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"] } });
 
 io.on("connection", (socket) => {
   console.log("user connected", socket.id);
@@ -30,8 +34,11 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen("8080");
+app.use("/login", loginRoute)
 
-// server.listen(8080, () => {
-//   console.log("listening on 8080");
-// });
+
+// httpServer.listen("8080");
+
+server.listen(8080, () => {
+  console.log("listening on 8080");
+});
