@@ -6,7 +6,7 @@ import http from "http";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 
-import loginRoute from "./routes/loginRoute.js"
+import userManagement from "./routes/userManagement.js";
 
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
@@ -20,7 +20,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"] } });
+const io = new Server(server, {
+  cors: { origin: "*", methods: ["GET", "POST"] },
+});
 
 io.on("connection", (socket) => {
   console.log("user connected", socket.id);
@@ -35,15 +37,15 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use("/login", loginRoute)
-
+app.use("/user", userManagement);
 
 // httpServer.listen("8080");
 
-
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://mem:x7hFAdbBGxgk9dIp@cluster0.avjb12c.mongodb.net/");
+    await mongoose.connect(
+      "mongodb+srv://menachemf95:WC5ImrVUG29PJyWX@cluster0.h7tnxm1.mongodb.net/"
+    );
     console.log("connected to mongoDB!");
   } catch (error) {
     throw error;

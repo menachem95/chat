@@ -8,7 +8,7 @@ const Login = () => {
   const passwordRef = useRef();
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await fetch("http://localhost:8080/login", {
+    const data = await fetch("http://localhost:8080/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
