@@ -23,11 +23,21 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    // const { userName, password } = await req.body;
-    // console.log(userName, password);
-    const user = await req.body;
-    console.log(user);
-    res.json(user);
+    const { username, password } = req.body;
+    // Check for user username
+    const user = await User.findOne({ username });
+
+    if (!user) return next(createError(404, "User not found!"));
+
+
+    if (user) {
+      res
+        .json({
+          _id: user.id,
+        });
+    } else {
+      return next(createError(400, "Invalid credentials!"));
+    }
   } catch (error) {
     throw Error(error);
   }
