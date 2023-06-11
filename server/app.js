@@ -39,6 +39,11 @@ io.on("connection", (socket) => {
   });
 });
 
+app.use((req, res, next) => {
+  req.io = io;
+  return next();
+})
+
 app.use("/user", userManagement);
 app.use("/group", groupManagement);
 
