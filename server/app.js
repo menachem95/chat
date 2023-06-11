@@ -5,7 +5,7 @@ import cors from "cors";
 import http from "http";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-
+import dotenv from "dotenv";
 import userManagement from "./routes/userManagement.js";
 
 // const httpServer = createServer();
@@ -17,6 +17,7 @@ import userManagement from "./routes/userManagement.js";
 // });
 
 const app = express();
+dotenv.config();
 app.use(cors());
 app.use(bodyParser.json());
 const server = http.createServer(app);
@@ -44,7 +45,7 @@ app.use("/user", userManagement);
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://menachemf95:WC5ImrVUG29PJyWX@cluster0.h7tnxm1.mongodb.net/"
+      process.env.MONGO_URI
     );
     console.log("connected to mongoDB!");
   } catch (error) {
@@ -58,7 +59,7 @@ mongoose.connection.on("connected", () => {
   console.log("MongoDB connected!");
 });
 
-server.listen(8080, () => {
-  connectDB();
+server.listen(8080,  () =>  {
+   connectDB();
   console.log("listening on 8080");
 });
