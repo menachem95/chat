@@ -1,16 +1,22 @@
+.main {
+ 
+  background-color: rgb(20, 49, 197);
+  display: block;
+  width: 100px;
+}
+
 .message {
     
-  display: inline-block;
-  background-color: beige;
-  margin: 3%;
-  
-  right: 0%;
+
 }
 
 .time {
 }
 
 .you {
-    right: 100%;
-    background-color: rgb(20, 49, 197);
+  background-color: rgb(194, 197, 20);
+  margin-left: auto;
+  margin-right: 0;
+   
+  
 }

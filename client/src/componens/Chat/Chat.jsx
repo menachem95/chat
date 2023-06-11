@@ -2,6 +2,7 @@ import classes from "./Chat.module.css";
 import React, { useRef, useState, useEffect } from "react";
 import io from "socket.io-client";
 import Message from "../Message/Message";
+import { useSelector } from "react-redux";
 
 const socket = io.connect("http://localhost:8080");
 
@@ -9,11 +10,12 @@ const Chat = () => {
   const inputRef = useRef();
   const [message, setMessage] = useState({});
   const [messageList, setMessageList] = useState([]);
+  const { id } = useSelector(state => state.user)
 
   const sendMessage = async () => {
     console.log(message);
     await socket.emit("send-message", {
-      author: "user",
+      author: id,
       room: "room",
       message: inputRef.current.value,
       time:
@@ -41,12 +43,12 @@ const Chat = () => {
   return (
     <div className={classes.main}>
       <div className={classes.header}>
-        <div></div>
+        <div>{id}</div>
       </div>
       <div className={classes.chat}>
         {messageList.map((data, i) => {
           
-          return <Message key={i} data={data} you={data.author === "user"} />;
+          return <Message key={i} data={data} yourId={id} />;
         })}
       </div>
       <div className={classes.footer}>
