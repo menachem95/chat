@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userManagement from "./routes/userManagement.js";
+import groupManagement from "./routes/groupManagement.js";
 
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
@@ -39,6 +40,7 @@ io.on("connection", (socket) => {
 });
 
 app.use("/user", userManagement);
+app.use("/group", groupManagement);
 
 // httpServer.listen("8080");
 
