@@ -1,16 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Chat from "./componens/Chat/Chat";
 import Login from "./componens/Login/Login";
+import { useSelector } from "react-redux";
 
-const loggedIn = false;
+
 
 function App() {
-  return (
-    <div>
-      {loggedIn ? <Chat /> : <Login />}
+  const {loggedIn} = useSelector((state) => state.user)
+  useEffect(() =>{
+    console.log(loggedIn)
+  }, [loggedIn])
   
-    </div>
-  );
+  console.log(loggedIn)
+  return <div>{loggedIn ? <Chat /> : <Login />}</div>;
 }
 
 export default App;

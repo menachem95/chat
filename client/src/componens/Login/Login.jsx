@@ -1,9 +1,12 @@
 import React,{ useRef } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/userSlice";
 
 import classes from "./Login.module.css";
 
 
 const Login = () => {
+  const dispatch = useDispatch()
   const nameRef = useRef();
   const passwordRef = useRef();
   const onLogin = async (e) => {
@@ -16,8 +19,9 @@ const Login = () => {
         password: passwordRef.current.value,
       })
     });
-    const login = await data.json();
-    console.log(login);
+    const loginData = await data.json();
+    console.log(loginData);
+    dispatch(login(loginData))
   };
   return (
     <div>
