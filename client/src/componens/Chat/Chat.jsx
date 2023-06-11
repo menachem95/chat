@@ -1,5 +1,5 @@
 import classes from "./Chat.module.css";
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import io from "socket.io-client";
 import Message from "../Message/Message";
 

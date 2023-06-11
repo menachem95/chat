@@ -1,3 +1,4 @@
+import React from "react";
 import Chat from "./componens/Chat/Chat";
 import Login from "./componens/Login/Login";
 
