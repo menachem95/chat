@@ -29,6 +29,9 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    socket.on("login", (date) => {
+      console.log(date, "login");
+    })
     socket.on("receive-message", (data) => {
       console.log(data);
       setMessageList([...messageList, data]);

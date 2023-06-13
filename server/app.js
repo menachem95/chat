@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
 
 app.use((req, res, next) => {
   req.io = io;
-  return next();
+  next();
 })
 
 app.use("/user", userManagement);

