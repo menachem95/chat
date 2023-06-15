@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { Server } from "socket.io";
+import socket from "socket.io";
 import express from "express";
 import cors from "cors";
 import http from "http";
@@ -22,12 +22,23 @@ dotenv.config();
 app.use(cors());
 app.use(bodyParser.json());
 const server = http.createServer(app);
-const io = new Server(server, {
+
+let users = []
+
+const io = socket(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
 io.on("connection", (socket) => {
   console.log("user connected", socket.id);
+
+  socket.on("login", (data) => {
+    const user = {id: socket.id}
+    users.push(user);
+    console.log(users)
+    console.log("login", data);
+    io.emit("get users", users)
+  })
 
   socket.on("send-message", (data) => {
     console.log(data.message);
@@ -39,10 +50,10 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use((req, res, next) => {
-  req.io = io;
-  next();
-})
+// app.use((req, res, next) => {
+//   req.io = io;
+//   next();
+// })
 
 app.use("/user", userManagement);
 app.use("/group", groupManagement);

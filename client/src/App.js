@@ -6,10 +6,11 @@ import { useSelector } from "react-redux";
 
 
 function App() {
-  const {loggedIn} = useSelector((state) => state.user)
-  useEffect(() =>{
-    console.log(loggedIn)
-  }, [loggedIn])
+  // const {loggedIn} = useSelector((state) => state.user)
+  const loggedIn = true
+  // useEffect(() =>{
+  //   console.log(loggedIn)
+  // }, [loggedIn])
   
   console.log(loggedIn)
   return <div>{loggedIn ? <Chat /> : <Login />}</div>;
