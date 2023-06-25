@@ -4,101 +4,57 @@ import io from "socket.io-client";
 import Message from "../Message/Message";
 import { useSelector } from "react-redux";
 
+const Chat = ({ userInfo, updetUserId }) => {
+  const [content, setContent] = useState("");
 
-
-const Chat = () => {
-  const socketRef = useRef()
-  const inputRef = useRef();
-  const [message, setMessage] = useState({});
-  const [messageList, setMessageList] = useState([]);
-  const { id } = useSelector(state => state.user)
-  const [users, setUsers] = useState([]);
+  const socketRef = useRef();
+  console.log(userInfo);
 
   let socket
-
-  // if (id) {
-    // socket = io.connect("http://localhost:8080", {autoConnect: false});
-   
-  // }
+  useEffect(() => {
+    socket = io.connect("http://localhost:8080");
+    socket.on("connect", () => {
+      
+      const id = socket.id;
+      console.log(`socket id: ${id}`);
+      updetUserId(id);
+    });
+  }, []);
 
   
 
-  const sendMessage = async () => {
-    console.log(message);
-    await socket.emit("send-message", {
-      author: id,// socketRef.current ? socketRef.current.id : "",
-      room: "room",
-      message: inputRef.current.value,
-      time:
-        new Date(Date.now()).getHours() +
-        ":" +
-        new Date(Date.now()).getMinutes(),
+  const sss = () => {
+    socket.emit("send message", {
+      content: "eee",
     });
-    // { message: message }
-    // );
-    inputRef.current.value = "";
   };
 
-  // useEffect(() => {
-  //   socket.on("login", (date) => {
-  //     console.log(date, "login");
-  //   })
-  //   socket.on("receive-message", (data) => {
-  //     console.log(data);
-  //     setMessageList([...messageList, data]);
-  //   });
-  // }, [socket.on, messageList]);
-
-  // socket.on("receive-message", (message) => {
-  //   console.log(message.message);
-  //   setMessageList([...messageList, message.message]);
-  // });
-
-  
-  console.log(users, "users");
-  // useEffect(() => {
-    // const connect =  () => {
-    socketRef.current =  io.connect("http://localhost:8080");
-    socketRef.current.emit("login");
-    // console.log(socketRef.current.id);
-    socketRef.current.emit("get users", (users) => {
-      console.log(users);
-      setUsers(users);
-      console.log(users, "users");
-    })
-    // }
-    // connect()
-    
-    
-    // return () => {
-    //   socketRef.current.disconnect()    }
-  // },[])
 
   return (
     <div className={classes.main}>
       <div className={classes.header}>
-        <div>{id}</div>
+        <div>user id:{userInfo.id}</div>
+        <div>user name:{userInfo.userName}</div>
       </div>
       <div className={classes.chat}>
-        {messageList.map((data, i) => {
-          
+        {/* {messageList.map((data, i) => {
           return <Message key={i} data={data} yourId={id} />;
-        })}
+        })} */}
       </div>
       <div className={classes.footer}>
         <input
           autoFocus
           type="text"
-          // onChange={(e) => setMessage(e.target.value)}
-          ref={inputRef}
+          onChange={(e) => setContent(e.target.value)}
+          
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              sendMessage();
-            }
+            
           }}
         />
         <div
-          onClick={sendMessage}
+         
+          onClick={sss}
+          
           className={`material-icons ${classes.send_icon}`}
         >
           &#xe163;

@@ -30,24 +30,10 @@ const io = socket(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("user connected", socket.id);
-
-  socket.on("login", (data) => {
-    const user = {id: socket.id}
-    users.push(user);
-    console.log(users)
-    console.log("login", data);
-    io.emit("get users", users)
-  })
-
-  socket.on("send-message", (data) => {
-    console.log(data.message);
-    io.emit("receive-message", data);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
-  });
+  console.log("id: ", socket.id)
+    socket.on("send message", (message) => {
+      console.log(message.content);
+    })
 });
 
 // app.use((req, res, next) => {
@@ -55,29 +41,29 @@ io.on("connection", (socket) => {
 //   next();
 // })
 
-app.use("/user", userManagement);
-app.use("/group", groupManagement);
+// app.use("/user", userManagement);
+// app.use("/group", groupManagement);
 
 // httpServer.listen("8080");
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(
-      process.env.MONGO_URI
-    );
-    console.log("connected to mongoDB!");
-  } catch (error) {
-    throw error;
-  }
-};
-mongoose.connection.on("disconnected", () => {
-  console.log("MongoDB disconnected!");
-});
-mongoose.connection.on("connected", () => {
-  console.log("MongoDB connected!");
-});
+// const connectDB = async () => {
+//   try {
+//     await mongoose.connect(
+//       process.env.MONGO_URI
+//     );
+//     console.log("connected to mongoDB!");
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+// mongoose.connection.on("disconnected", () => {
+//   console.log("MongoDB disconnected!");
+// });
+// mongoose.connection.on("connected", () => {
+//   console.log("MongoDB connected!");
+// });
 
 server.listen(8080,  () =>  {
-   connectDB();
+  //  connectDB();
   console.log("listening on 8080");
 });
