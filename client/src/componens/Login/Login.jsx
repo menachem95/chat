@@ -5,14 +5,14 @@ import { login } from "../../store/userSlice";
 import classes from "./Login.module.css";
 
 
-const Login = ({login, updetUserName}) => {
+const Login = ({login}) => {
   const [userName, setUserName] = useState("")
   
   const onSubmitHandler = (e) => {
     
     e.preventDefault();
     login()
-    updetUserName(userName)
+    
     
   }
  

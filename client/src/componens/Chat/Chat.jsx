@@ -1,60 +1,64 @@
 import classes from "./Chat.module.css";
 import React, { useRef, useState, useEffect } from "react";
-import io from "socket.io-client";
+
 import Message from "../Message/Message";
 import { useSelector } from "react-redux";
 
-const Chat = ({ userInfo, updetUserId }) => {
-  const [content, setContent] = useState("");
+const Chat = ({ userInfo, socket }) => {
+  const [content, setContent] = useState({});
+  const [messages, setMessages] = useState([]);
 
-  const socketRef = useRef();
   console.log(userInfo);
-
-  let socket
   useEffect(() => {
-    socket = io.connect("http://localhost:8080");
-    socket.on("connect", () => {
-      
-      const id = socket.id;
-      console.log(`socket id: ${id}`);
-      updetUserId(id);
+    socket.on("get message", (message) => {
+      console.log(`message.content: ${message.content}`);
+      setMessages([...messages, message]);
     });
-  }, []);
-
-  
-
-  const sss = () => {
-    socket.emit("send message", {
-      content: "eee",
-    });
+  }, [messages]);
+  const sendMessage = (e) => {
+    e.preventDefault();
+    socket.emit("send message", { content });
+   
+    e.target.value = ""
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      socket.emit("send message", { content });
+     
+      e.target.value = ""
+    }
+  }
 
   return (
     <div className={classes.main}>
+      <button type="button" onClick={() => socket.on("join", "Test")}>
+        Test group
+      </button>
       <div className={classes.header}>
         <div>user id:{userInfo.id}</div>
         <div>user name:{userInfo.userName}</div>
       </div>
       <div className={classes.chat}>
-        {/* {messageList.map((data, i) => {
-          return <Message key={i} data={data} yourId={id} />;
-        })} */}
+        {messages.map((data, i) => {
+          return (
+            <Message
+              key={i}
+              data={data}
+              //  yourId={id}
+            />
+          );
+        })}
       </div>
       <div className={classes.footer}>
         <input
           autoFocus
           type="text"
           onChange={(e) => setContent(e.target.value)}
-          
-          onKeyDown={(e) => {
-            
-          }}
+          onKeyDown={handleKeyDown}
         />
         <div
-         
-          onClick={sss}
-          
+          onClick={sendMessage}
           className={`material-icons ${classes.send_icon}`}
         >
           &#xe163;

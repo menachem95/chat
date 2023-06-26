@@ -30,10 +30,14 @@ const io = socket(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("id: ", socket.id)
-    socket.on("send message", (message) => {
-      console.log(message.content);
-    })
+  console.log(`⚡: ${socket.id} user just connected!`);
+  socket.on("send message", (message) => {
+    console.log(`message.content: ${message.content}`)
+    io.emit("get message", message)
+  })
+  socket.on('disconnect', () => {
+    console.log('🔥: A user disconnected');
+  });
 });
 
 // app.use((req, res, next) => {

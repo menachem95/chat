@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import Chat from "./componens/Chat/Chat";
 import Login from "./componens/Login/Login";
 import { useSelector } from "react-redux";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:8080");
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -11,23 +14,13 @@ function App() {
     setIsLogin(true);
   };
 
-  const updetUserId = (data) => {
-    console.log(data)
-    setUserInfo({...userInfo, id: data});
-  };
-
-  const updetUserName = (data) => {
-    console.log(data)
-    setUserInfo({...userInfo, userName: data});
-  };
-
   console.log(isLogin);
   return (
     <div>
       {isLogin ? (
-        <Chat userInfo={userInfo} updetUserId={updetUserId} />
+        <Chat userInfo={userInfo} socket={socket} />
       ) : (
-        <Login login={login} updetUserName={updetUserName} />
+        <Login login={login} />
       )}
     </div>
   );

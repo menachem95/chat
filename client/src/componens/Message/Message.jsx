@@ -7,7 +7,7 @@ const Message = ({ data, yourId }) => {
       <div
         className={`${classes.main} ${yourId === data.author ? classes.you : ""}`}
       >
-        <div className={classes.message}>{data.message} </div>
+        <div className={classes.message}>{data.content} </div>
         <div className={classes.time}>{data.time}</div>
       </div>
     </>
