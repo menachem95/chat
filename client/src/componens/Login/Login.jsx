@@ -1,16 +1,39 @@
-import React,{ useState } from "react";
+import React,{ useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/userSlice";
+import { login, updateUserInfo, getSocket } from "../../store/userSlice";
+import io from "socket.io-client";
 
 import classes from "./Login.module.css";
 
 
-const Login = ({login, setUserInfo}) => {
+const Login = ({login, getName, getSocket}) => {
   const [userName, setUserName] = useState("")
+  const [id, setId] = useState("")
+  const dispatch = useDispatch();
+  const nameRef = useRef();
   
-  const onSubmitHandler = (e) => {
+
+  useEffect(()=>{
+    const socket = io.connect("http://localhost:8080");
+    socket.on("connect",async() => {
     
-    e.preventDefault();
+      setId(socket.id)
+       console.log(id)
+    })
+    getSocket(socket);
+  },[])
+  const onSubmitHandler = (e) => {
+    // const socket = io.connect("http://localhost:8080");
+    // socket.on("connect",async() => {
+    
+    //   setId(socket.id)
+    //    console.log(id)
+    // })
+    // getSocket(socket);
+   
+    
+    
+    dispatch(updateUserInfo({name: nameRef.current.value, id }))
     login()
     
     
@@ -20,7 +43,9 @@ const Login = ({login, setUserInfo}) => {
   return (
     <div>
       <form >
-        <input type="text" placeholder="שם משתמש" onChange={(e) => setUserInfo({name: e.target.value, id: ""})} />
+        <input autoFocus ref={nameRef} type="text" placeholder="שם משתמש"
+        //  onChange={(e) => getName(e.target.value)}
+          />
        
         <button onClick={onSubmitHandler}>{"התחבר"} </button>
       </form>
