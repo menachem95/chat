@@ -5,7 +5,7 @@ import { login } from "../../store/userSlice";
 import classes from "./Login.module.css";
 
 
-const Login = ({login}) => {
+const Login = ({login, setUserInfo}) => {
   const [userName, setUserName] = useState("")
   
   const onSubmitHandler = (e) => {
@@ -20,7 +20,7 @@ const Login = ({login}) => {
   return (
     <div>
       <form >
-        <input type="text" placeholder="שם משתמש" onChange={(e) => setUserName(e.target.value)} />
+        <input type="text" placeholder="שם משתמש" onChange={(e) => setUserInfo({name: e.target.value, id: ""})} />
        
         <button onClick={onSubmitHandler}>{"התחבר"} </button>
       </form>

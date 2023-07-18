@@ -20,7 +20,7 @@ function App() {
       {isLogin ? (
         <Chat userInfo={userInfo} socket={socket} />
       ) : (
-        <Login login={login} />
+        <Login login={login} setUserInfo={setUserInfo} />
       )}
     </div>
   );

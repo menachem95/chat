@@ -5,7 +5,7 @@ import Message from "../Message/Message";
 import { useSelector } from "react-redux";
 
 const Chat = ({ userInfo, socket }) => {
-  const [content, setContent] = useState({});
+  const contentRef = useRef()
   const [messages, setMessages] = useState([]);
 
   console.log(userInfo);
@@ -16,19 +16,12 @@ const Chat = ({ userInfo, socket }) => {
     });
   }, [messages]);
   const sendMessage = (e) => {
-    e.preventDefault();
-    socket.emit("send message", { content });
-   
-    e.target.value = ""
+    // e.preventDefault();
+    socket.emit("send message", { content: contentRef.current.value, from: userInfo.name, to: ""  });
+    contentRef.current.value = "";
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      socket.emit("send message", { content });
-     
-      e.target.value = ""
-    }
-  }
+  
 
   return (
     <div className={classes.main}>
@@ -45,7 +38,7 @@ const Chat = ({ userInfo, socket }) => {
             <Message
               key={i}
               data={data}
-              //  yourId={id}
+              yourName={userInfo.name}
             />
           );
         })}
@@ -54,8 +47,14 @@ const Chat = ({ userInfo, socket }) => {
         <input
           autoFocus
           type="text"
-          onChange={(e) => setContent(e.target.value)}
-          onKeyDown={handleKeyDown}
+          ref={contentRef}
+          // onChange={(e) => setContent(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter"){
+            sendMessage()
+          }
+        }}
+          // onKeyDown={handleKeyDown}
         />
         <div
           onClick={sendMessage}

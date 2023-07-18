@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
     console.log(`message.content: ${message.content}`)
     io.emit("get message", message)
   })
+  socket.on()
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
