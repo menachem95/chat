@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./Test.module.css";
+import Chat from "../Chat/Chat";
 
-const Test = () => {
+const Test = ({socket}) => {
   return (
     <div className={classes.main}>
       <div className={classes.grid_container}>
@@ -9,7 +10,7 @@ const Test = () => {
         <div className={classes.header}>header</div>
 
         <div className={classes.users}>users</div>
-        <div className={classes.chat}>chat</div>
+        <Chat socket={socket} className={classes.chat}/>
       </div>
     </div>
   );

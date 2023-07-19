@@ -36,13 +36,13 @@ dispatch(getUsers(usersFromSrv))
 
   return (
     <div className={classes.main}>
-      <button type="button" onClick={() => socket.on("join", "Test")}>
+      {/* <button type="button" onClick={() => socket.on("join", "Test")}>
         Test group
       </button>
       <div className={classes.header}>
         <div>user id:{userInfo.id}</div>
         <div>user name:{userInfo.name}</div>
-      </div>
+      </div> */}
       <div className={classes.chat}>
         {messages.map((data, i) => {
           return <Message key={i} data={data} yourName={userInfo.name} />;

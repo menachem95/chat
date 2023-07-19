@@ -16,7 +16,7 @@ function App() {
     <div>
       {isloggedIn ?
       //  <Main socket={socket} /> 
-       <Test />
+       <Test socket={socket} />
        : <Login socket={socket} />}
     </div>
   );
