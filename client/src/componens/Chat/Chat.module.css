@@ -29,6 +29,9 @@
  background-color: rgba(116, 36, 36, 0.549);
  height: 100%;
   /* height: calc(100% - 70px); */
+  position: relative;
+  
+  overflow-y: scroll;
 }
 
 .footer {
