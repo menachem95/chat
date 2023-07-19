@@ -1,0 +1,41 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.grid_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 90vw;
+  height: 90vh;
+}
+
+.my_account {
+  grid-column: 1;
+  grid-row: 1;
+  background-color: rgb(255, 0, 30);
+}
+
+.header {
+  grid-column: 2 / 7;
+  grid-row: 1;
+  background-color: blue;
+}
+
+.users {
+  grid-column: 1;
+  grid-row: 2 / 11;
+  background-color: rgb(4, 255, 0);
+}
+.chat {
+  grid-column: 2 / 7;
+  grid-row: 2 / 11;
+  background-color: rgb(221, 255, 0);
+}

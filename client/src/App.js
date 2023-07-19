@@ -1,9 +1,9 @@
 import React from "react";
-import Chat from "./componens/Chat/Chat";
 import Login from "./componens/Login/Login";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
 import Main from "./componens/Main/Main";
+import Test from "./componens/Test/Test";
 
 const socket = io.connect("http://localhost:8080");
 
@@ -14,7 +14,10 @@ function App() {
   console.log(isloggedIn);
   return (
     <div>
-      {isloggedIn ? <Main socket={socket} /> : <Login socket={socket} />}
+      {isloggedIn ?
+      //  <Main socket={socket} /> 
+       <Test />
+       : <Login socket={socket} />}
     </div>
   );
 }

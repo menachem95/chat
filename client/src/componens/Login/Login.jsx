@@ -1,9 +1,7 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { login, updateUserInfo, getSocket } from "../../store/userSlice";
-import io from "socket.io-client";
+import { login, updateUserInfo } from "../../store/userSlice";
 
-import classes from "./Login.module.css";
 
 const Login = ({ socket }) => {
   const dispatch = useDispatch();
