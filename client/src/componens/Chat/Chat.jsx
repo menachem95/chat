@@ -21,7 +21,7 @@ const Chat = ({ socket }) => {
     });
   }, [messages]);
 
-  useEffect(() => {socket.on("getUsers", (usersFromSrv) => {
+  useEffect(() => {socket.on("get users", (usersFromSrv) => {
 dispatch(getUsers(usersFromSrv))
   })}, [users]);
   const sendMessage = (e) => {

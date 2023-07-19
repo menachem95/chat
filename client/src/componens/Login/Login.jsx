@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { login, updateUserInfo, getSocket } from "../../store/userSlice";
 import io from "socket.io-client";

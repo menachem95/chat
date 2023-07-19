@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
   // console.log(userinfo);
   users.push(userinfo)
   console.log("users",users);
-  io.emit("getUsers", users)
+  io.emit("get users", users)
  })
   socket.on("send message", (message) => {
     console.log(`message.content: ${message.content}`)
@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
   socket.on('disconnect', () => {
     users = users.filter(user => user.id !== socket.id)
     console.log("users",users);
-    io.emit("getUsers", users)
+    io.emit("get users", users)
     console.log(`🔥: ${socket.id} user disconnected`);
   });
 });

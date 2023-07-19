@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    isloggedIn: false,
+    isloggedIn: true,
     socket: {},
     userInfo: { name: "", id: "" },
-    users: [],
+    users: [ { name: '1', id: 'm_zBUUeW5DKsztuJAAAB' },
+    { name: '2', id: 'JcUsoxtSRPnJ7t7OAAAC' },
+    { name: '3', id: '-BDNoor4_vPbN7NyAAAD' }],
   },
 
   reducers: {
