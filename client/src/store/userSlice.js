@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    loggedIn: false,
+    isloggedIn: false,
     socket: {},
     userInfo: { name: "", id: "" },
     users: [],
@@ -11,18 +11,17 @@ const userSlice = createSlice({
 
   reducers: {
     login(state, action) {
-      state.loggedIn = true ? action.payload : false;
-      // state.id = action.payload._id;
+      state.isloggedIn = action.payload;
     },
     updateUserInfo(state, action) {
       state.userInfo = action.payload;
     },
-    getSocket(state, action) {
-      state.socket = action.payload.socket;
-    },
+    getUsers(state, action) {
+      state.users = action.payload
+    }
   },
 });
 
-export const { login, updateUserInfo, getSocket } = userSlice.actions;
+export const { login, updateUserInfo, getUsers } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -2,25 +2,28 @@ import classes from "./Chat.module.css";
 import React, { useRef, useState, useEffect } from "react";
 
 import Message from "../Message/Message";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {getUsers} from "../../store/userSlice";
 
-const Chat = ({socket}) => {
-  const {userInfo} = useSelector((state) => state.user);
-  // const {socket} = useSelector((state) => state.user);
-  console.log(socket.id);
-  console.log(userInfo);
+const Chat = ({ socket }) => {
+  const { userInfo, users } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+ 
   const contentRef = useRef();
   const [messages, setMessages] = useState([]);
 
-  socket.emit("login", userInfo);
-
-  console.log(userInfo);
+  // socket.emit("login", userInfo);
+  console.log("users", users);
   useEffect(() => {
     socket.on("get message", (message) => {
       console.log(`message.content: ${message.content}`);
       setMessages([...messages, message]);
     });
   }, [messages]);
+
+  useEffect(() => {socket.on("getUsers", (usersFromSrv) => {
+dispatch(getUsers(usersFromSrv))
+  })}, [users]);
   const sendMessage = (e) => {
     // e.preventDefault();
     socket.emit("send message", {

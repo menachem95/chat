@@ -32,10 +32,10 @@ const io = socket(server, {
 io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
  socket.on("login", (userinfo) => {
-  console.log(userinfo);
+  // console.log(userinfo);
   users.push(userinfo)
-  console.log(users);
-  socket.emit("getUsers", users)
+  console.log("users",users);
+  io.emit("getUsers", users)
  })
   socket.on("send message", (message) => {
     console.log(`message.content: ${message.content}`)
@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on('disconnect', () => {
-    console.log('🔥: A user disconnected');
+    console.log(`🔥: ${socket.id} user disconnected`);
   });
 });
 

@@ -4,39 +4,16 @@ import Login from "./componens/Login/Login";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
 
-// const socket = io.connect("http://localhost:8080");
+const socket = io.connect("http://localhost:8080");
 
 // let users = [];
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [socket, setSocket] = useState();
-  // const [userInfo, setUserInfo] = useState({ name: "", id: socket.id });
-
-  const login = () => {
-    setIsLogin(true);
-  };
-
-  const getSocket = (s) => {
-    setSocket(s)
-  }
-
-  
-
-  // socket.on("getUsers", (usersList) => {
-  //   console.log(usersList);
-  //   // users = usersList;
-  //   // console.log(users, "users");
-  // });
-
-  console.log(isLogin);
+  const { isloggedIn } = useSelector((state) => state.user);
+  console.log(isloggedIn);
   return (
     <div>
-      {isLogin ? (
-        <Chat socket={socket} />
-      ) : (
-        <Login login={login} getSocket={getSocket}/>
-      )}
+      {isloggedIn ? <Chat socket={socket} /> : <Login socket={socket} />}
     </div>
   );
 }
