@@ -43,6 +43,9 @@ io.on("connection", (socket) => {
   })
 
   socket.on('disconnect', () => {
+    users = users.filter(user => user.id !== socket.id)
+    console.log("users",users);
+    io.emit("getUsers", users)
     console.log(`🔥: ${socket.id} user disconnected`);
   });
 });
