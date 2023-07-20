@@ -29,7 +29,7 @@
  /* background-color: rgba(116, 36, 36, 0.549); */
  height: 100%;
   /* height: calc(100% - 70px); */
-  position: relative;
+  /* position: relative; */
   
   
   /* overflow-y: scroll; */
@@ -38,10 +38,12 @@
 .footer {
   display: flex;
   margin-top: auto;
- position: fixed;
- bottom: 0;
+  position: fixed;
+  bottom: 0;
   height: 10%;
-  
+  width: -webkit-fill-available;
+  padding: 0.5%;
+
 }
 
 .footer input {
@@ -54,15 +56,18 @@
 }
 
 .send_icon {
- box-sizing: border-box;
+  box-sizing: border-box;
   color: cadetblue;
   cursor: pointer;
-  /* font-size: 25px; */
+ 
+ 
+  font-size: 30px;
   margin: auto;
 }
 
 .send_icon:hover {
-    /* font-size: 30px; */
+    font-size: 35px;
+    margin-left: 5px;
   color: rgb(95, 133, 160);
  
 }
