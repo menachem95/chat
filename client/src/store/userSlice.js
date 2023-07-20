@@ -8,7 +8,10 @@ const userSlice = createSlice({
     userInfo: { name: "", id: "" },
     users: [ { name: '1', id: 'm_zBUUeW5DKsztuJAAAB' },
     { name: '2', id: 'JcUsoxtSRPnJ7t7OAAAC' },
-    { name: '3', id: '-BDNoor4_vPbN7NyAAAD' }],
+    { name: '3', id: '-BDNoor4_vPbN7NyAAAD' },
+  { name: '1', id: 'm_zBUUeW5DKsztuJAAAB' },
+    { name: '2', id: 'JcUsoxtSRPnJ7t7OAAAC' },
+    { name: '3', id: '-BDNoor4_vPbN7NyAAAD' },],
   },
 
   reducers: {

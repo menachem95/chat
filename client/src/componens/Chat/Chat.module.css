@@ -13,9 +13,9 @@
   /* transform: translate(-50%, -50%); */
   background-image: url("../../images/bg/bg.jpg");
   /* height: 100%; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; */
   /* height: 100%;
   width: 100%; */
 }
