@@ -1,5 +1,6 @@
 import classes from "./Chat.module.css";
 import React, { useRef, useState, useEffect } from "react";
+import ScrollToBottom from "react-scroll-to-bottom"
 
 import Message from "../Message/Message";
 import { useSelector, useDispatch } from "react-redux";
@@ -43,12 +44,12 @@ dispatch(getUsers(usersFromSrv))
         <div>user id:{userInfo.id}</div>
         <div>user name:{userInfo.name}</div>
       </div> */}
-      <div className={classes.chat}>
+     <ScrollToBottom className={classes.chat} initialScrollBehavior="auto" > 
+        
         {messages.map((data, i) => {
-          return <Message key={i} data={data} yourName={userInfo.name} />;
+          return <Message key={i} data={data} yourName={userInfo.name} isLast={i === messages.length - 1}/>;
         })}
-      </div>
-      <div className={classes.footer}>
+          <div className={classes.footer}>
         <input
           autoFocus
           type="text"
@@ -68,6 +69,8 @@ dispatch(getUsers(usersFromSrv))
           &#xe163;
         </div>
       </div>
+      </ScrollToBottom>
+    
     </div>
   );
 };
