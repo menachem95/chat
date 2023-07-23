@@ -30,21 +30,14 @@ dispatch(getUsers(usersFromSrv))
     socket.emit("send message", {
       content: contentRef.current.value,
       from: userInfo.id,
-      to: current_chat.id,
+      to: current_chat?.id,
     });
     contentRef.current.value = "";
   };
 
   return (
     <div className={classes.main}>
-      {/* <button type="button" onClick={() => socket.on("join", "Test")}>
-        Test group
-      </button>
-      <div className={classes.header}>
-        <div>user id:{userInfo.id}</div>
-        <div>user name:{userInfo.name}</div>
-      </div> */}
-     <ScrollToBottom className={classes.chat} initialScrollBehavior="auto" > 
+      {current_chat ?  <ScrollToBottom className={classes.chat} initialScrollBehavior="auto" > 
         
         {messages
         // .filter(message => message.from === desination.id)
@@ -71,7 +64,15 @@ dispatch(getUsers(usersFromSrv))
           &#xe163;
         </div>
       </div>
-      </ScrollToBottom>
+      </ScrollToBottom>: <div>בחר משתמש</div>}
+      {/* <button type="button" onClick={() => socket.on("join", "Test")}>
+        Test group
+      </button>
+      <div className={classes.header}>
+        <div>user id:{userInfo.id}</div>
+        <div>user name:{userInfo.name}</div>
+      </div> */}
+    
     
     </div>
   );

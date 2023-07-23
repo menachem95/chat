@@ -7,7 +7,7 @@ const userSlice = createSlice({
     socket: {},
     userInfo: { name: "", id: "" },
     users: [],
-    current_chat: { type: "", id: "", name: "" },
+    current_chat: undefined,
   },
 
   reducers: {
