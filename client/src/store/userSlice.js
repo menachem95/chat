@@ -3,15 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    isloggedIn: true,
+    isloggedIn: false,
     socket: {},
     userInfo: { name: "", id: "" },
-    users: [ { name: '1', id: 'm_zBUUeW5DKsztuJAAAB' },
-    { name: '2', id: 'JcUsoxtSRPnJ7t7OAAAC' },
-    { name: '3', id: '-BDNoor4_vPbN7NyAAAD' },
-  { name: '1', id: 'm_zBUUeW5DKsztuJAAAB' },
-    { name: '2', id: 'JcUsoxtSRPnJ7t7OAAAC' },
-    { name: '3', id: '-BDNoor4_vPbN7NyAAAD' },],
+    users: [],
+    desination: { type: "", id: "", name: "" },
   },
 
   reducers: {
@@ -22,11 +18,19 @@ const userSlice = createSlice({
       state.userInfo = action.payload;
     },
     getUsers(state, action) {
-      state.users = action.payload
-    }
+      state.users = action.payload;
+    },
+    changeDesination(state, action) {
+      state.desination = action.payload;
+    },
   },
 });
 
-export const { login, updateUserInfo, getUsers } = userSlice.actions;
+export const {
+  login,
+  updateUserInfo,
+  getUsers,
+  changeDesination,
+} = userSlice.actions;
 
 export default userSlice.reducer;

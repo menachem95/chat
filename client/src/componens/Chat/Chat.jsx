@@ -7,13 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import {getUsers} from "../../store/userSlice";
 
 const Chat = ({ socket }) => {
-  const { userInfo, users } = useSelector((state) => state.user);
+  const { userInfo, users,  desination} = useSelector((state) => state.user);
   const dispatch = useDispatch()
  
   const contentRef = useRef();
   const [messages, setMessages] = useState([]);
 
-  // socket.emit("login", userInfo);
+ 
   console.log("users", users);
   useEffect(() => {
     socket.on("get message", (message) => {
@@ -26,7 +26,7 @@ const Chat = ({ socket }) => {
 dispatch(getUsers(usersFromSrv))
   })}, [users]);
   const sendMessage = (e) => {
-    // e.preventDefault();
+   
     socket.emit("send message", {
       content: contentRef.current.value,
       from: userInfo.name,
@@ -46,7 +46,9 @@ dispatch(getUsers(usersFromSrv))
       </div> */}
      <ScrollToBottom className={classes.chat} initialScrollBehavior="auto" > 
         
-        {messages.map((data, i) => {
+        {messages
+        // .filter(message => message.from === desination.id)
+        .map((data, i) => {
           return <Message key={i} data={data} yourName={userInfo.name} isLast={i === messages.length - 1}/>;
         })}
           <div className={classes.footer}>
