@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {getUsers} from "../../store/userSlice";
 
 const Chat = ({ socket }) => {
-  const { userInfo, users,  desination} = useSelector((state) => state.user);
+  const { userInfo, users,  current_chat} = useSelector((state) => state.user);
   const dispatch = useDispatch()
  
   const contentRef = useRef();
@@ -29,8 +29,8 @@ dispatch(getUsers(usersFromSrv))
    
     socket.emit("send message", {
       content: contentRef.current.value,
-      from: userInfo.name,
-      to: "",
+      from: userInfo.id,
+      to: current_chat.id,
     });
     contentRef.current.value = "";
   };
@@ -49,7 +49,7 @@ dispatch(getUsers(usersFromSrv))
         {messages
         // .filter(message => message.from === desination.id)
         .map((data, i) => {
-          return <Message key={i} data={data} yourName={userInfo.name} isLast={i === messages.length - 1}/>;
+          return <Message key={i} data={data} yourId={userInfo.id} isLast={i === messages.length - 1}/>;
         })}
           <div className={classes.footer}>
         <input

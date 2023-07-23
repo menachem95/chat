@@ -38,8 +38,10 @@ io.on("connection", (socket) => {
   io.emit("get users", users)
  })
   socket.on("send message", (message) => {
-    console.log(`message.content: ${message.content}`)
-    io.emit("get message", message)
+    console.log(`message:`, message)
+    socket.to(message.to).emit("get message", message);
+    socket.emit("get message", message)
+
   })
   // socket.on("privateMessage", (desinationValue) => {
   //   socket.join(desinationValue.id);

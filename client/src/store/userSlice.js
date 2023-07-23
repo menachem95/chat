@@ -7,7 +7,7 @@ const userSlice = createSlice({
     socket: {},
     userInfo: { name: "", id: "" },
     users: [],
-    desination: { type: "", id: "", name: "" },
+    current_chat: { type: "", id: "", name: "" },
   },
 
   reducers: {
@@ -20,8 +20,8 @@ const userSlice = createSlice({
     getUsers(state, action) {
       state.users = action.payload;
     },
-    changeDesination(state, action) {
-      state.desination = action.payload;
+    changeCurrent_chat(state, action) {
+      state.current_chat = action.payload;
     },
   },
 });
@@ -30,7 +30,7 @@ export const {
   login,
   updateUserInfo,
   getUsers,
-  changeDesination,
+  changeCurrent_chat,
 } = userSlice.actions;
 
 export default userSlice.reducer;
