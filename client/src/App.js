@@ -3,7 +3,7 @@ import Login from "./componens/Login/Login";
 import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
 import Main from "./componens/Main/Main";
-import Test from "./componens/Test/Test";
+
 import { updateMessages } from "./store/userSlice";
 
 const socket = io.connect("http://localhost:8080");
@@ -23,8 +23,8 @@ function App() {
   return (
     <div>
       {isloggedIn ? (
-        //  <Main socket={socket} />
-        <Test socket={socket} />
+         <Main socket={socket} />
+       
       ) : (
         <Login socket={socket} />
       )}

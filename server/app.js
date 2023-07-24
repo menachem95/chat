@@ -43,10 +43,7 @@ io.on("connection", (socket) => {
     socket.emit("get message", message)
 
   })
-  // socket.on("privateMessage", (desinationValue) => {
-  //   socket.join(desinationValue.id);
-  //   socket.to(desinationValue.id, )
-  // })
+ 
 
   socket.on('disconnect', () => {
     users = users.filter(user => user.id !== socket.id)
