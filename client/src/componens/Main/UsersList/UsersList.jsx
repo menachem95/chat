@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./UsersList.module.css";
-import { changeCurrent_chat } from "../../store/userSlice";
+import { changeCurrent_chat } from "../../../store/userSlice";
 
 const UsersList = ({ socket }) => {
   const { users, userInfo, messages } = useSelector((state) => state.user);

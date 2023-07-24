@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Main.module.css";
-import Chat from "../Chat/Chat";
+import Chat from "./Chat/Chat";
 import UsersList from "../UsersList/UsersList";
 import CurrentChat from "../CurrentChat/CurrentChat";
 

@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Login from "./componens/Login/Login";
 import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
-import Main from "./componens/Main/Main";
+import Main from "./componens/Main/Main/Main";
 
 import { updateMessages } from "./store/userSlice";
 
@@ -22,12 +22,7 @@ function App() {
   }, [messages]);
   return (
     <div>
-      {isloggedIn ? (
-         <Main socket={socket} />
-       
-      ) : (
-        <Login socket={socket} />
-      )}
+      {isloggedIn ? <Main socket={socket} /> : <Login socket={socket} />}
     </div>
   );
 }
