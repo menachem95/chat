@@ -4,7 +4,7 @@ import classes from "./UsersList.module.css";
 import { changeCurrent_chat } from "../../store/userSlice";
 
 const UsersList = ({ socket }) => {
-  const { users, userInfo } = useSelector((state) => state.user);
+  const { users, userInfo, messages } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   
 const onClickHandler = (data) => {
@@ -25,6 +25,7 @@ const onClickHandler = (data) => {
               {user.name}
             </button>
             {/* <h2>{user.id}</h2> */}
+            {messages.filter((message) => message.from === user.id).length}
           </div>
         ))}
     </div>
