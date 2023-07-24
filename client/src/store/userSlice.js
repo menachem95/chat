@@ -8,6 +8,7 @@ const userSlice = createSlice({
     userInfo: { name: "", id: "" },
     users: [],
     current_chat: undefined,
+    messages: [],
   },
 
   reducers: {
@@ -23,6 +24,9 @@ const userSlice = createSlice({
     changeCurrent_chat(state, action) {
       state.current_chat = action.payload;
     },
+    updateMessages(state, action) {
+    state.messages = action.payload;
+    },
   },
 });
 
@@ -31,6 +35,7 @@ export const {
   updateUserInfo,
   getUsers,
   changeCurrent_chat,
+  updateMessages,
 } = userSlice.actions;
 
 export default userSlice.reducer;

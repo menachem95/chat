@@ -7,20 +7,20 @@ import { useSelector, useDispatch } from "react-redux";
 import {getUsers} from "../../store/userSlice";
 
 const Chat = ({ socket }) => {
-  const { userInfo, users,  current_chat} = useSelector((state) => state.user);
+  const { userInfo, users,  current_chat, messages} = useSelector((state) => state.user);
   const dispatch = useDispatch()
  
   const contentRef = useRef();
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
 
  
   console.log("users", users);
-  useEffect(() => {
-    socket.on("get message", (message) => {
-      console.log(`message.content: ${message.content}`);
-      setMessages([...messages, message]);
-    });
-  }, [messages]);
+  // useEffect(() => {
+  //   socket.on("get message", (message) => {
+  //     console.log(`message.content: ${message.content}`);
+  //     setMessages([...messages, message]);
+  //   });
+  // }, [messages]);
 
   useEffect(() => {socket.on("get users", (usersFromSrv) => {
 dispatch(getUsers(usersFromSrv))
@@ -40,7 +40,7 @@ dispatch(getUsers(usersFromSrv))
       {current_chat ?  <ScrollToBottom className={classes.chat} initialScrollBehavior="auto" > 
         
         {messages
-        // .filter(message => message.from === desination.id)
+        .filter(message => message.from === current_chat.id)
         .map((data, i) => {
           return <Message key={i} data={data} yourId={userInfo.id} isLast={i === messages.length - 1}/>;
         })}
