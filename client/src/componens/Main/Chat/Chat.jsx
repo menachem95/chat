@@ -2,9 +2,9 @@ import classes from "./Chat.module.css";
 import React, { useRef, useState, useEffect } from "react";
 import ScrollToBottom from "react-scroll-to-bottom"
 
-import Message from "../../../Message/Message";
+import Message from "../../Message/Message";
 import { useSelector, useDispatch } from "react-redux";
-import {getUsers} from "../../../../store/userSlice";
+import {getUsers} from "../../../store/userSlice";
 
 const Chat = ({ socket }) => {
   const { userInfo, users,  current_chat, messages} = useSelector((state) => state.user);
