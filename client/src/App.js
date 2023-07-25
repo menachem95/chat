@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
 import Main from "./componens/Main/Main/Main";
 
-import { updateMessages } from "./store/userSlice";
+import { updateMessages, getUsers } from "./store/userSlice";
 
 const socket = io.connect("http://localhost:8080");
 
 // let users = [];
 
 function App() {
-  const { isloggedIn, messages } = useSelector((state) => state.user);
+  const { isloggedIn, messages, users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   console.log(isloggedIn);
   useEffect(() => {
@@ -20,6 +20,7 @@ function App() {
       dispatch(updateMessages([...messages, message]));
     });
   }, [messages]);
+  
   return (
     <div>
       {isloggedIn ? <Main socket={socket} /> : <Login socket={socket} />}

@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
   socket.on("send message", (message) => {
     console.log(`message:`, message)
     socket.to(message.to).emit("get message", message);
-    socket.emit("get message", message)
+  
 
   })
  
