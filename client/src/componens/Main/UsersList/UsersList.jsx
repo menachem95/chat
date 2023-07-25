@@ -18,7 +18,7 @@ const OneUserInList = ({user}) => {
     {user.name}
   </button>
   {/* <h2>{user.id}</h2> */}
-  {messages.filter((message) => message.from === user.id).length}
+  {messages.filter((message) => message.from === user.id && !message.isRead).length}
 </div>
 }
 
@@ -41,7 +41,7 @@ useEffect(() => {
       {users
         .filter((user) => user.id !== userInfo.id)
         .map((user) => (
-          <OneUserInList user={user} />
+          <OneUserInList key={user.id} user={user} />
           // <div key={user.id} className={classes.user}>
           //   <button
           //     onClick={() =>
