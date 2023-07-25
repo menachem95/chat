@@ -5,6 +5,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import Message from "../../Message/Message";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, updateMessages } from "../../../store/userSlice";
+import { current } from "@reduxjs/toolkit";
 
 const Chat = ({ socket }) => {
   const { userInfo, users, current_chat, messages } = useSelector(
@@ -41,7 +42,7 @@ const Chat = ({ socket }) => {
       {current_chat ? (
         <ScrollToBottom className={classes.chat} initialScrollBehavior="auto">
           {messages
-            .filter((message) => message.from === current_chat.id)
+            .filter((message) => message.from === current_chat.id || message.to === current_chat.id)
             .map((data, i) => {
               return (
                 <Message
