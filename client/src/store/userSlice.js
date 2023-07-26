@@ -24,17 +24,17 @@ const userSlice = createSlice({
     changeCurrent_chat(state, action) {
       state.current_chat = action.payload;
 // debugger
-      const newMessages = [...state.messages];
-      // debugger
-      console.log("newMessages:", newMessages);
-      for (let i = 0; i < state.messages; i++) {
-        if (newMessages[i].from === action.payload.id) {
-          debugger
-          newMessages[i].isRead = true;
-        }
-      }
-      state.messages = newMessages;
-      console.log("state.messages:", state.messages);
+      // const newMessages = [...state.messages];
+      
+      // console.log("newMessages:", newMessages);
+      // for (let i = 0; i < state.messages; i++) {
+      //   if (newMessages[i].from === action.payload.id) {
+      //     debugger
+      //     newMessages[i].isRead = true;
+      //   }
+      // }
+      // state.messages = newMessages;
+      // console.log("state.messages:", state.messages);
     },
     updateMessages(state, action) {
       state.messages = action.payload;
