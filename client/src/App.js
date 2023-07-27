@@ -4,20 +4,20 @@ import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
 import Main from "./componens/Main/Main/Main";
 
-import { updateMessages, getUsers } from "./store/userSlice";
+import { updateMessages } from "./store/userSlice";
 
 const socket = io.connect("http://localhost:8080");
 
-// let users = [];
+
 
 function App() {
-  const { isloggedIn, messages, users } = useSelector((state) => state.user);
+  const { isloggedIn, messages, users, current_chat } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   console.log(isloggedIn);
   useEffect(() => {
     socket.on("get message", (message) => {
       console.log(`message.content: ${message.content}`);
-      dispatch(updateMessages([...messages, message]));
+      dispatch(updateMessages([...messages, {...message, isRead: current_chat?.id === message.from ? true : false}]));
     });
   }, [messages]);
   
