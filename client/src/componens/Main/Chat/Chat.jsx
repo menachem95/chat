@@ -1,11 +1,11 @@
 import classes from "./Chat.module.css";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 import Message from "../../Message/Message";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, updateMessages } from "../../../store/userSlice";
-import { current } from "@reduxjs/toolkit";
+import {  updateMessages } from "../../../store/userSlice";
+
 
 const Chat = ({ socket }) => {
   const { userInfo, users, current_chat, messages } = useSelector(
@@ -14,23 +14,18 @@ const Chat = ({ socket }) => {
   const dispatch = useDispatch();
 
   const contentRef = useRef();
-  // const [messages, setMessages] = useState([]);
+  
 
   console.log("users", users);
-  // useEffect(() => {
-  //   socket.on("get message", (message) => {
-  //     console.log(`message.content: ${message.content}`);
-  //     setMessages([...messages, message]);
-  //   });
-  // }, [messages]);
+  
 
   const sendMessage = (e) => {
     const message = {
       content: contentRef.current.value,
       from: userInfo.id,
       to: current_chat?.id,
-      data: "",
-      isRead: false
+      isRead: false,
+      
     };
     socket.emit("send message", message);
     contentRef.current.value = "";
