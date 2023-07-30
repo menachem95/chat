@@ -25,8 +25,7 @@ const userSlice = createSlice({
       state.current_chat = action.payload;
     },
     updateMessages(state, action) {
-      state.messages = action.payload;
-      console.log("updateMessages:", action.payload);
+      state.messages =  action.payload;
     },
   },
 });

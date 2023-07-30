@@ -13,11 +13,11 @@ const socket = io.connect("http://localhost:8080");
 function App() {
   const { isloggedIn, messages, users, current_chat } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log(isloggedIn);
-  useEffect(() => {
+ console.log(isloggedIn);
+  useEffect(() => { 
     socket.on("get message", (message) => {
       console.log(`message.content: ${message.content}`);
-      dispatch(updateMessages([...messages, {...message, isRead: current_chat?.id === message.from ? true : false}]));
+      dispatch(updateMessages([...messages, message]))//, isRead: current_chat?.id === message.from ? true : false}]));
     });
   }, [messages]);
   

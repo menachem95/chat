@@ -10,19 +10,16 @@ import {
 const OneUserInList = ({ user }) => {
   const { messages } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const onClickHandler = (data) => {
-    const newMessages = messages.map((message) => {
-      return { ...message };
-    });
-    for (let i = 0; i < newMessages.length; i++) {
-      console.log("newMessages[i]:", newMessages[i]);
-      if (newMessages[i].from === data.id) {
-        newMessages[i].isRead = true;
-      }
-    }
+  const onClickHandler = (userData) => {
+    // const newMessages = messages.map((message) => {
+    //   return {
+    //     ...message,
+    //     isRead: message.from === userData.id ? true : false,
+    //   };
+    // });
 
-    dispatch(updateMessages(newMessages));
-    dispatch(changeCurrent_chat(data));
+    // dispatch(updateMessages(newMessages));
+    dispatch(changeCurrent_chat(userData));
   };
   return (
     <div key={user.id} className={classes.user}>

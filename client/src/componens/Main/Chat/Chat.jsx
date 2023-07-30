@@ -16,7 +16,7 @@ const Chat = ({ socket }) => {
   const contentRef = useRef();
   
 
-  console.log("users", users);
+  
   
 
   const sendMessage = (e) => {
@@ -24,7 +24,7 @@ const Chat = ({ socket }) => {
       content: contentRef.current.value,
       from: userInfo.id,
       to: current_chat?.id,
-      isRead: false,
+     
       
     };
     socket.emit("send message", message);
