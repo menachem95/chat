@@ -11,12 +11,12 @@ const OneUserInList = ({ user }) => {
   const { messages } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onClickHandler = (userData) => {
-    // const newMessages = messages.map((message) => {
-    //   return {
-    //     ...message,
-    //     isRead: message.from === userData.id ? true : false,
-    //   };
-    // });
+    const newMessages = messages.map((message) => {
+      return {
+        ...message,
+        isRead: message.isRead ||  message.from === userData.id ? true : false,
+      };
+    });
 
     // dispatch(updateMessages(newMessages));
     dispatch(changeCurrent_chat(userData));

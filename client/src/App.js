@@ -8,19 +8,20 @@ import { updateMessages } from "./store/userSlice";
 
 const socket = io.connect("http://localhost:8080");
 
-
-
 function App() {
-  const { isloggedIn, messages, users, current_chat } = useSelector((state) => state.user);
+  const { isloggedIn, messages, users, current_chat } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
- console.log(isloggedIn);
-  useEffect(() => { 
+  console.log(isloggedIn);
+  useEffect(() => {
     socket.on("get message", (message) => {
       console.log(`message.content: ${message.content}`);
-      dispatch(updateMessages([...messages, message]))//, isRead: current_chat?.id === message.from ? true : false}]));
+      const newMessages = [...messages, {...message, isRead: message.isRead || current_chat?.id === message.from ? true : false}]
+      dispatch(updateMessages(newMessages));
     });
   }, [messages]);
-  
+
   return (
     <div>
       {isloggedIn ? <Main socket={socket} /> : <Login socket={socket} />}

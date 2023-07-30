@@ -19,7 +19,8 @@ const Chat = ({ socket }) => {
   
   
 
-  const sendMessage = (e) => {
+  const sendMessage = () => {
+    
     const message = {
       content: contentRef.current.value,
       from: userInfo.id,
