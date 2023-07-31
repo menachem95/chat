@@ -18,7 +18,7 @@ const OneUserInList = ({ user }) => {
       };
     });
 
-    // dispatch(updateMessages(newMessages));
+    dispatch(updateMessages(newMessages));
     dispatch(changeCurrent_chat(userData));
   };
   return (

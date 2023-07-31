@@ -14,11 +14,13 @@ function App() {
   );
   const dispatch = useDispatch();
   console.log(isloggedIn);
+  
   useEffect(() => {
-    socket.on("get message", (message) => {
+    socket.once("get message", (message) => {
       console.log(`message.content: ${message.content}`);
       const newMessages = [...messages, {...message, isRead: message.isRead || current_chat?.id === message.from ? true : false}]
       dispatch(updateMessages(newMessages));
+     
     });
   }, [messages]);
 

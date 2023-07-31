@@ -7,7 +7,20 @@ const CurrentChat = () => {
   const { current_chat, messages } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
+  
+
+  return <div className={classes.main}>{current_chat?.name}</div>;
+};
+
+export default CurrentChat;
+
+
+
+
+
+
+
+// useEffect(() => {
   //   const newMessages = messages.map((message) => {
   //     return {
   //       ...message,
@@ -16,8 +29,3 @@ const CurrentChat = () => {
   //   });
   //   dispatch(updateMessages(newMessages));
   // }, []);
-
-  return <div className={classes.main}>{current_chat?.name}</div>;
-};
-
-export default CurrentChat;
