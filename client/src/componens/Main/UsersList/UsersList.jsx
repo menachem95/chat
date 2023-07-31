@@ -14,24 +14,31 @@ const OneUserInList = ({ user }) => {
     const newMessages = messages.map((message) => {
       return {
         ...message,
-        isRead: message.isRead ||  message.from === userData.id ? true : false,
+        isRead: message.isRead || message.from === userData.id ? true : false,
       };
     });
 
     dispatch(updateMessages(newMessages));
     dispatch(changeCurrent_chat(userData));
   };
-  return (
-    <div key={user.id} className={classes.user}>
-      <button onClick={() => onClickHandler({ id: user.id, name: user.name })}>
-        {user.name}
-      </button>
+  const unreadMessages = () => {
+    return messages.filter(
+      (message) => message.from === user.id && !message.isRead
+    ).length;
+  };
 
-      {
-        messages.filter(
-          (message) => message.from === user.id && !message.isRead
-        ).length
-      }
+  return (
+    <div
+      key={user.id}
+      className={classes.user}
+      onClick={() => onClickHandler({ id: user.id, name: user.name })}
+    >
+      <div> {user.name}</div>
+      <div>
+        {unreadMessages() !== 0
+          ? ` הודעות שלא נקראו ${unreadMessages()}`
+          : ""}
+      </div>
     </div>
   );
 };
