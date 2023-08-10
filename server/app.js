@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userManagement from "./routes/userManagement.js";
 import groupManagement from "./routes/groupManagement.js";
+import User from "./models/User.js";
 
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
@@ -23,19 +24,27 @@ app.use(cors());
 app.use(bodyParser.json());
 const server = http.createServer(app);
 
-let users = []
+// let users = []
 
 const io = socket(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-io.on("connection", (socket) => {
+io.on("connection",  (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
- socket.on("login", (userinfo) => {
+ socket.on("login", async (userinfo) => {
   // console.log(userinfo);
-  users.push(userinfo)
-  console.log("users",users);
-  io.emit("get users", users)
+  // users.push(userinfo)
+  
+  await User.create({
+      name: userinfo.name,
+      socketId: socket.id
+    });
+ const users = await User.find()
+ 
+
+  console.log("users: ",users);
+  io.emit("get users", [...users])
  })
   socket.on("send message", (message) => {
     console.log(`message:`, message)
@@ -46,9 +55,9 @@ io.on("connection", (socket) => {
  
 
   socket.on('disconnect', () => {
-    users = users.filter(user => user.id !== socket.id)
-    console.log("users",users);
-    io.emit("get users", users)
+    // users = users.filter(user => user.id !== socket.id)
+    // console.log("users",users);
+    // io.emit("get users", users)
     console.log(`🔥: ${socket.id} user disconnected`);
   });
 });
@@ -63,24 +72,24 @@ io.on("connection", (socket) => {
 
 // httpServer.listen("8080");
 
-// const connectDB = async () => {
-//   try {
-//     await mongoose.connect(
-//       process.env.MONGO_URI
-//     );
-//     console.log("connected to mongoDB!");
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-// mongoose.connection.on("disconnected", () => {
-//   console.log("MongoDB disconnected!");
-// });
-// mongoose.connection.on("connected", () => {
-//   console.log("MongoDB connected!");
-// });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(
+      process.env.MONGO_URI
+    );
+    console.log("connected to mongoDB!");
+  } catch (error) {
+    throw error;
+  }
+};
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB disconnected!");
+});
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected!");
+});
 
 server.listen(8080,  () =>  {
-  //  connectDB();
+   connectDB();
   console.log("listening on 8080");
 });

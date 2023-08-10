@@ -3,18 +3,22 @@ const { SchemaTypes } = mongoose;
 
 const UserSchema = new mongoose.Schema(
   {
-    userName: {
+    name: {
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
+    // password: {
+    //   type: String,
+    //   required: true,
+    // },
+    socketId: { type: String },
+    onLine: {
+      type: Boolean,
     },
     // isAdmin: {
     //   type: Boolean,
