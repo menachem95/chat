@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { login, updateUserInfo } from "../../store/userSlice";
+import { login, updateUserInfo } from "../../../store/userSlice";
 
-
-const Login = ({ socket }) => {
+const Login = ({ socket, changeIsRegistered }) => {
+  
   const dispatch = useDispatch();
   const nameRef = useRef();
 
@@ -20,21 +20,25 @@ const Login = ({ socket }) => {
     e.preventDefault();
 
     const userInfo = { name: nameRef.current.value, id: socket.id };
-   
+
     socket.emit("login", userInfo);
-   
+
     dispatch(updateUserInfo(userInfo));
     dispatch(login(true));
   };
 
-  return (
-    <div>
-      <form>
-        <input autoFocus ref={nameRef} type="text" placeholder="שם משתמש" />
+ 
 
-        <button onClick={onSubmitHandler}>{"התחבר"} </button>
-      </form>
-    </div>
+  return (
+    
+        <div>
+          <form>
+            <input autoFocus ref={nameRef} type="text" placeholder="שם משתמש" />
+
+            <button onClick={onSubmitHandler}>{"התחבר"} </button>
+          </form>
+        </div>
+     
   );
 };
 

@@ -20,10 +20,6 @@ const UserSchema = new mongoose.Schema(
     onLine: {
       type: Boolean,
     },
-    // isAdmin: {
-    //   type: Boolean,
-    //   default: false,
-    // },
     groups: {
       type: [{ type: SchemaTypes.ObjectId, ref: "Group" }],
     },

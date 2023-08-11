@@ -49,14 +49,15 @@ const UsersList = ({ socket }) => {
 
   useEffect(() => {
     socket.on("get users", (usersFromSrv) => {
-      dispatch(getUsers(usersFromSrv));
+      console.log("users: ", users);
+            dispatch(getUsers(usersFromSrv));
     });
   }, [users]);
 
   return (
     <div className={classes.main}>
       {users
-        .filter((user) => user.id !== userInfo.id)
+        
         .map((user) => (
           <OneUserInList key={user.id} user={user} />
         ))}

@@ -30,31 +30,27 @@ const io = socket(server, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-io.on("connection",  (socket) => {
+io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
- socket.on("login", async (userinfo) => {
-  // console.log(userinfo);
-  // users.push(userinfo)
-  
-  await User.create({
-      name: userinfo.name,
-      socketId: socket.id
+  socket.on("register", async (userInfo) => {
+    await User.create({
+      name: userInfo.name,
+      id: socket.id,
     });
- const users = await User.find()
- 
-
-  console.log("users: ",users);
-  io.emit("get users", [...users])
- })
+  });
+  socket.on("login", async ({ name }) => {
+    const user = await User.find({ name });
+    const users = await User.find({"name": { "$ne" : name}});
+    console.log(users)
+    socket.emit("get user", user);
+    io.emit("get users", users);
+  });
   socket.on("send message", (message) => {
-    console.log(`message:`, message)
+    console.log(`message:`, message);
     socket.to(message.to).emit("get message", message);
-  // socket.emit("get message", message);
+  });
 
-  })
- 
-
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     // users = users.filter(user => user.id !== socket.id)
     // console.log("users",users);
     // io.emit("get users", users)
@@ -74,9 +70,7 @@ io.on("connection",  (socket) => {
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      process.env.MONGO_URI
-    );
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("connected to mongoDB!");
   } catch (error) {
     throw error;
@@ -89,7 +83,7 @@ mongoose.connection.on("connected", () => {
   console.log("MongoDB connected!");
 });
 
-server.listen(8080,  () =>  {
-   connectDB();
+server.listen(8080, () => {
+  connectDB();
   console.log("listening on 8080");
 });

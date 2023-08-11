@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import Login from "./componens/Login/Login";
+import Login from "./componens/Entry/Login/Login";
+import Entry from "./componens/Entry/Entry/Entry";
 import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
 import Main from "./componens/Main/Main/Main";
@@ -8,10 +9,12 @@ import { updateMessages } from "./store/userSlice";
 
 const socket = io.connect("http://localhost:8080");
 
+
 function App() {
   const { isloggedIn, messages, users, current_chat } = useSelector(
     (state) => state.user
   );
+  
   const dispatch = useDispatch();
   console.log(isloggedIn);
 
@@ -35,7 +38,7 @@ function App() {
 
   return (
     <div>
-      {isloggedIn ? <Main socket={socket} /> : <Login socket={socket} />}
+      {isloggedIn ? <Main socket={socket} /> : <Entry socket={socket} />}
     </div>
   );
 }
