@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema(
     socketId: { type: String },
     online: {
       type: Boolean,
+      default: false
     },
     groups: {
       type: [{ type: SchemaTypes.ObjectId, ref: "Group" }],

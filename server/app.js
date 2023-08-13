@@ -33,43 +33,48 @@ const io = socket(server, {
 io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   socket.on("register", async (userInfo) => {
-    await User.create({
-      name: userInfo.name,
-      socketId: socket.id,
-    });
-    const users = await User.find();
+    try {
+      await User.create({
+        name: userInfo.name,
+        socketId: socket.id,
+      });
+      const users = await User.find();
 
-    console.log(users)
-  
-    io.emit("get users", users);
+    
+
+      io.emit("get users", users);
+    } catch (err) {
+      console.log(err);
+      return err
+    }
   });
 
   socket.on("login", async ({ name }) => {
-    const user = await User.findOneAndUpdate( {name}, {online: true, socketId: socket.id}, {new: true} );
+    const user = await User.findOneAndUpdate(
+      { name },
+      { online: true, socketId: socket.id },
+      { new: true }
+    );
     // const users = await User.find({"name": { "$ne" : name}});
-   const users = await User.find();
+    const users = await User.find();
 
-    console.log(users)
     socket.emit("get user", user);
     io.emit("get users", users);
   });
   socket.on("send message", (message) => {
-    console.log(`message:`, message);
+   
     socket.to(message.to).emit("get message", message);
   });
 
   socket.on("disconnect", async () => {
-    console.log("socket:", socket);
-    
-    
-   await User.findOneAndUpdate( {socketId: socket.id}, {online: false} );
-  // console.log("user.online:", user?.online)
-     const users = await User.find();
-   console.log("users:", users   )
+ 
 
-   
-    
-    io.emit("get users", users)
+    await User.findOneAndUpdate({ socketId: socket.id }, { online: false });
+    // console.log("user.online:", user?.online)
+    const users = await User.find();
+  
+
+    io.emit("get users", users);
     console.log(`🔥: ${socket.id} user disconnected`);
   });
 });

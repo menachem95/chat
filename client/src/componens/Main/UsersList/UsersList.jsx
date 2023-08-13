@@ -28,7 +28,8 @@ const OneUserInList = ({ user }) => {
   };
 
   return (
-    <div
+    
+    <tr
       key={user.id}
       className={classes.user}
       onClick={() => onClickHandler({ id: user.id, name: user.name })}
@@ -40,7 +41,9 @@ const OneUserInList = ({ user }) => {
           : ""}
       </div>
       <div className={user.online ? classes.online : classes.notOnline} />
-    </div>
+      {user.online ? <div>מחובר/ת</div> : <div>{`נראה לאחרונה ${user.updatedAt
+}`}</div>}
+    </tr>
   );
 };
 
@@ -58,11 +61,12 @@ const UsersList = ({ socket }) => {
 
   return (
     <div className={classes.main}>
-      {users
+      <table>{users
         
         .map((user) => (
           <OneUserInList key={user.id} user={user} />
-        ))}
+        ))}</table>
+      
     </div>
   );
 };
