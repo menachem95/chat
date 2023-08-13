@@ -14,7 +14,7 @@ const OneUserInList = ({ user }) => {
     const newMessages = messages.map((message) => {
       return {
         ...message,
-        isRead: message.isRead || message.from === userData.id ? true : false,
+        isRead: message.isRead || message.from === userData.socketId ? true : false,
       };
     });
 
@@ -23,16 +23,16 @@ const OneUserInList = ({ user }) => {
   };
   const unreadMessages = () => {
     return messages.filter(
-      (message) => message.from === user.id && !message.isRead
+      (message) => message.from === user.socketId && !message.isRead
     ).length;
   };
 
   return (
     
     <tr
-      key={user.id}
+      key={user.socketId}
       className={classes.user}
-      onClick={() => onClickHandler({ id: user.id, name: user.name })}
+      onClick={() => onClickHandler({ socketId: user.socketId, name: user.name })}
     >
       <div> {user.name}</div>
       <div>
@@ -64,7 +64,7 @@ const UsersList = ({ socket }) => {
       <table>{users
         
         .map((user) => (
-          <OneUserInList key={user.id} user={user} />
+          <OneUserInList key={user.socketId} user={user} />
         ))}</table>
       
     </div>

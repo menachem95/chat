@@ -29,7 +29,7 @@ function App() {
         {
           ...message,
           isRead:
-            message.isRead || current_chat?.id === message.from ? true : false,
+            message.isRead || current_chat?.socketId === message.from ? true : false,
         },
       ];
       dispatch(updateMessages(newMessages));
