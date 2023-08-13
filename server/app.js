@@ -37,10 +37,18 @@ io.on("connection", (socket) => {
       name: userInfo.name,
       id: socket.id,
     });
+    const users = await User.find();
+
+    console.log(users)
+  
+    io.emit("get users", users);
   });
+
   socket.on("login", async ({ name }) => {
     const user = await User.find({ name });
-    const users = await User.find({"name": { "$ne" : name}});
+    // const users = await User.find({"name": { "$ne" : name}});
+   const users = await User.find();
+
     console.log(users)
     socket.emit("get user", user);
     io.emit("get users", users);

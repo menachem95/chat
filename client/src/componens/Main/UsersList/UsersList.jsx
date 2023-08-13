@@ -47,12 +47,13 @@ const UsersList = ({ socket }) => {
   const { users, userInfo } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  // useEffect(() => {
     socket.on("get users", (usersFromSrv) => {
+      debugger
       console.log("users: ", users);
-            dispatch(getUsers(usersFromSrv));
+            dispatch(getUsers(usersFromSrv.filter(user => user.name !== userInfo.name)));
     });
-  }, [users]);
+  // }, [users]);
 
   return (
     <div className={classes.main}>

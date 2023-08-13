@@ -10,8 +10,8 @@ console.log(socket.id)
     setIsRegistered(value)
   }
 return (<div>
-  {isRegistered ? <Login changeIsRegistered={changeIsRegistered} socket={socket} />
-  : <Register socket={socket} changeIsRegistered={changeIsRegistered} />}</div>
+ <Login changeIsRegistered={changeIsRegistered} socket={socket} />
+  <Register socket={socket} changeIsRegistered={changeIsRegistered} /></div>
 )};
 
 export default Entry;
