@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
   socket.on("register", async (userInfo) => {
     await User.create({
       name: userInfo.name,
-      id: socket.id,
+      socketId: socket.id,
     });
     const users = await User.find();
 
@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("login", async ({ name }) => {
-    const user = await User.find({ name });
+    const user = await User.findOneAndUpdate( {name}, {online: true, socketId: socket.id}, {new: true} );
     // const users = await User.find({"name": { "$ne" : name}});
    const users = await User.find();
 
@@ -58,10 +58,18 @@ io.on("connection", (socket) => {
     socket.to(message.to).emit("get message", message);
   });
 
-  socket.on("disconnect", () => {
-    // users = users.filter(user => user.id !== socket.id)
-    // console.log("users",users);
-    // io.emit("get users", users)
+  socket.on("disconnect", async () => {
+    console.log("socket:", socket);
+    
+    
+   await User.findOneAndUpdate( {socketId: socket.id}, {online: false} );
+  // console.log("user.online:", user?.online)
+     const users = await User.find();
+   console.log("users:", users   )
+
+   
+    
+    io.emit("get users", users)
     console.log(`🔥: ${socket.id} user disconnected`);
   });
 });

@@ -39,6 +39,7 @@ const OneUserInList = ({ user }) => {
           ? ` הודעות שלא נקראו ${unreadMessages()}`
           : ""}
       </div>
+      <div className={user.online ? classes.online : classes.notOnline} />
     </div>
   );
 };
@@ -48,8 +49,8 @@ const UsersList = ({ socket }) => {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-    socket.on("get users", (usersFromSrv) => {
-      debugger
+    socket.once("get users", (usersFromSrv) => {
+      
       console.log("users: ", users);
             dispatch(getUsers(usersFromSrv.filter(user => user.name !== userInfo.name)));
     });
