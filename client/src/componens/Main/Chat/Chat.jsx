@@ -17,13 +17,13 @@ const Chat = ({ socket }) => {
   
 
   const sendMessage = () => {
-    console.log("current_chat?.socketId:",current_chat?.socketId);
+    console.log("current_chat?.id:",current_chat?.id);
     
     const message = {
       date: getTime(),
       content: contentRef.current.value,
-      from: 123,// userInfo.socketId,
-      // to: current_chat?.socketId,
+      from:  userInfo.id,
+     
     to: current_chat.id
     };
    
@@ -39,15 +39,15 @@ const Chat = ({ socket }) => {
           {messages
             .filter(
               (message) =>
-                message.from === current_chat.socketId ||
-                message.to === current_chat.socketId
+                message.from === current_chat.id ||
+                message.to === current_chat.id
             )
             .map((data, i) => {
               return (
                 <Message
                   key={i}
                   data={data}
-                  yourId={userInfo.socketId}
+                  yourId={userInfo.id}
                   isLast={i === messages.length - 1}
                 />
               );

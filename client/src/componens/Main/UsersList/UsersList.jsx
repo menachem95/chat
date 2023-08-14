@@ -14,7 +14,7 @@ const OneUserInList = ({ user }) => {
     const newMessages = messages.map((message) => {
       return {
         ...message,
-        isRead: message.isRead || message.from === userData.socketId ? true : false,
+        isRead: message.isRead || message.from === userData.id ? true : false,
       };
     });
 
@@ -23,26 +23,26 @@ const OneUserInList = ({ user }) => {
   };
   const unreadMessages = () => {
     return messages.filter(
-      (message) => message.from === user.socketId && !message.isRead
+      (message) => message.from === user.id && !message.isRead
     ).length;
   };
 
   return (
     
-    <tr
-      key={user.socketId}
+    <tr 
+      key={user.id}
       className={classes.user}
-      onClick={() => onClickHandler({ socketId: user.socketId, name: user.name, id: user.id })}
+      onClick={() => onClickHandler({ id: user.id, name: user.name, id: user.id })}
     >
-      <div> {user.name}</div>
-      <div>
+      <td> {user.name}</td>
+      <td>
         {unreadMessages() !== 0
           ? ` הודעות שלא נקראו ${unreadMessages()}`
           : ""}
-      </div>
-      <div className={user.online ? classes.online : classes.notOnline} />
-      {user.online ? <div>מחובר/ת</div> : <div>{`נראה לאחרונה ${user.updatedAt
-}`}</div>}
+      </td>
+      <td className={user.online ? classes.online : classes.notOnline} />
+      {user.online ? <td>מחובר/ת</td> : <td>{`נראה לאחרונה ${user.updatedAt
+}`}</td>}
     </tr>
   );
 };
@@ -61,11 +61,13 @@ const UsersList = ({ socket }) => {
 
   return (
     <div className={classes.main}>
-      <table>{users
+     <table>
+      <tbody>{users
         
         .map((user) => (
-          <OneUserInList key={user.socketId} user={user} />
-        ))}</table>
+          <OneUserInList key={user.id} user={user} />
+        ))}</tbody>
+    </table>
       
     </div>
   );
