@@ -33,16 +33,16 @@ const OneUserInList = ({ user }) => {
       key={user.id}
       className={classes.user}
       onClick={() => onClickHandler({ id: user.id, name: user.name, id: user.id })}
-    >
-      <td> {user.name}</td>
-      <td>
+    ><td>
+      <div> {user.name}</div>
+      <div>
         {unreadMessages() !== 0
           ? ` הודעות שלא נקראו ${unreadMessages()}`
           : ""}
-      </td>
-      <td className={user.online ? classes.online : classes.notOnline} />
-      {user.online ? <td>מחובר/ת</td> : <td>{`נראה לאחרונה ${user.updatedAt
-}`}</td>}
+      </div>
+      <div className={user.online ? classes.online : classes.notOnline} />
+      {user.online ? <div>מחובר/ת</div> : <div>{`נראה לאחרונה ${user.updatedAt
+}`}</div>}</td>
     </tr>
   );
 };
@@ -61,8 +61,8 @@ const UsersList = ({ socket }) => {
 
   return (
     <div className={classes.main}>
-     <table>
-      <tbody>{users
+     <table >
+      <tbody >{users
         
         .map((user) => (
           <OneUserInList key={user.id} user={user} />
