@@ -13,14 +13,18 @@ const Chat = ({ socket }) => {
   );
   const dispatch = useDispatch();
 
-  const contentRef = useRef();
+  const contentRef = useRef()
+  
 
   const sendMessage = () => {
+    console.log("current_chat?.socketId:",current_chat?.socketId);
+    
     const message = {
       date: getTime(),
       content: contentRef.current.value,
-      from: userInfo.socketId,
-      to: current_chat?.socketId,
+      from: 123,// userInfo.socketId,
+      // to: current_chat?.socketId,
+    to: current_chat.id
     };
    
     socket.emit("send message", message);

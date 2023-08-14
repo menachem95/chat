@@ -21,8 +21,9 @@ function App() {
   
 
 
-  useEffect(() => {
+  // useEffect(() => {
     socket.once("get message", (message) => {
+      debugger
       console.log(`message.content: ${message.content}`);
       const newMessages = [
         ...messages,
@@ -34,7 +35,7 @@ function App() {
       ];
       dispatch(updateMessages(newMessages));
     });
-  }, [messages]);
+  // }, [messages]);
 
   return (
     <div>

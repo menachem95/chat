@@ -32,7 +32,7 @@ const OneUserInList = ({ user }) => {
     <tr
       key={user.socketId}
       className={classes.user}
-      onClick={() => onClickHandler({ socketId: user.socketId, name: user.name })}
+      onClick={() => onClickHandler({ socketId: user.socketId, name: user.name, id: user.id })}
     >
       <div> {user.name}</div>
       <div>

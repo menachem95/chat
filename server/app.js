@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
       await User.create({
         name: userInfo.name,
         socketId: socket.id,
+        id: socket.id
       });
       const users = await User.find();
 
@@ -52,7 +53,7 @@ io.on("connection", (socket) => {
   socket.on("login", async ({ name }) => {
     const user = await User.findOneAndUpdate(
       { name },
-      { online: true, socketId: socket.id },
+      { online: true, socketId: socket.id, id: socket.id },
       { new: true }
     );
     // const users = await User.find({"name": { "$ne" : name}});
@@ -62,7 +63,7 @@ io.on("connection", (socket) => {
     io.emit("get users", users);
   });
   socket.on("send message", (message) => {
-    
+    console.log("message:",message);
     socket.to(message.to).emit("get message", message);
   });
 
