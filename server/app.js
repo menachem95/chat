@@ -1,5 +1,5 @@
 import { createServer } from "http";
-const { ObjectId } = mongoose;
+
 import socket from "socket.io";
 import express from "express";
 import cors from "cors";
@@ -11,7 +11,7 @@ import userManagement from "./routes/userManagement.js";
 import groupManagement from "./routes/groupManagement.js";
 import User from "./models/User.js";
 import Message from "./models/Message.js";
-
+const { ObjectId } = mongoose.Schema.Types;
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
 //   cors: {
