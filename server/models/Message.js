@@ -9,16 +9,18 @@ const MessageSchema = new mongoose.Schema(
       default: false,
     },
     from: {
-      type: { type: SchemaTypes.ObjectId, ref: "User" },
-      require: true,
+      type: String,
+      // type: { type: SchemaTypes.ObjectId, ref: "User" },
+      // required: true,
     },
 
     to: {
       type: 
-        {
-          type: SchemaTypes.ObjectId,
-          ref: "User",
-        },
+      String
+        // {
+        //   type: SchemaTypes.ObjectId,
+        //   ref: "User",
+        // },
         // {
         //   type: SchemaTypes.ObjectId,
         //   ref: "Group",
@@ -28,8 +30,9 @@ const MessageSchema = new mongoose.Schema(
     },
     content: {
       type: String,
-      require: true,
+      required: true,
     },
+    date: Object
 
    
   },

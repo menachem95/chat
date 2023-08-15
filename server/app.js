@@ -72,6 +72,7 @@ io.on("connection", (socket) => {
       to: m.to._id,
       from: m.from,
       content: m.content,
+      date: m.date
     });
     console.log(message);
     cd(message);
