@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { login, updateUserInfo } from "../../../store/userSlice";
+import { login, updateUserInfo, updateMessages } from "../../../store/userSlice";
 
 const Login = ({ socket, changeIsRegistered }) => {
   
@@ -19,11 +19,16 @@ const Login = ({ socket, changeIsRegistered }) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    const userInfo = { name: nameRef.current.value, id: socket.id };
+    // const userInfo = { name: nameRef.current.value };
 
-    socket.emit("login", userInfo);
+    socket.emit("login", nameRef.current.value, (userInfo, messages) => {
+      console.log(userInfo)
+      dispatch(updateUserInfo(userInfo));
+      dispatch(updateMessages( messages));
+     
+    });
 
-    dispatch(updateUserInfo(userInfo));
+    
     dispatch(login(true));
   };
 

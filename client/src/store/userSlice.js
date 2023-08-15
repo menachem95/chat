@@ -5,7 +5,7 @@ const userSlice = createSlice({
   initialState: {
     isloggedIn: false,
     socket: {},
-    userInfo: { name: "", id: "" },
+    userInfo: { name: "", id: "", _id:"", },
     users: [],
     current_chat: undefined,
     messages: [],
@@ -25,7 +25,7 @@ const userSlice = createSlice({
       state.current_chat = action.payload;
     },
     updateMessages(state, action) {
-      state.messages =  action.payload;
+      state.messages =  [...state.messages, action.payload];
     },
   },
 });

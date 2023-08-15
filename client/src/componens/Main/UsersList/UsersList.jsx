@@ -32,7 +32,7 @@ const OneUserInList = ({ user }) => {
     <tr 
       key={user.id}
       className={classes.user}
-      onClick={() => onClickHandler({ id: user.id, name: user.name, id: user.id })}
+      onClick={() => onClickHandler({ id: user.id, name: user.name, _id: user._id })}
     ><td>
       <div> {user.name}</div>
       <div>

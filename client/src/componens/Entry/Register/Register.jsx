@@ -11,7 +11,7 @@ const Register = ({ socket, changeIsRegistered }) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const userInfo = { name: nameRef.current.value, id: socket?.id };
+    const userInfo = { name: nameRef.current.value };
     socket.emit("register", userInfo)
     changeIsRegistered(true)
   };

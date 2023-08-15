@@ -13,23 +13,21 @@ const Chat = ({ socket }) => {
   );
   const dispatch = useDispatch();
 
-  const contentRef = useRef()
-  
+  const contentRef = useRef();
 
+  console.log("messages:", messages);
   const sendMessage = () => {
-    console.log("current_chat?.id:",current_chat?.id);
-    
     const message = {
       date: getTime(),
       content: contentRef.current.value,
-      from:  userInfo.id,
-     
-    to: current_chat.id
+      from: userInfo._id,
+
+      to: { id: current_chat.id, _id: current_chat._id },
     };
-   
-    socket.emit("send message", message);
+    socket.emit("send message", message, (m) => {
+      dispatch(updateMessages(m));
+    });
     contentRef.current.value = "";
-    dispatch(updateMessages([...messages, message]));
   };
 
   return (
@@ -39,8 +37,8 @@ const Chat = ({ socket }) => {
           {messages
             .filter(
               (message) =>
-                message.from === current_chat.id ||
-                message.to === current_chat.id
+                message.from === current_chat._id ||
+                message.to === current_chat._id
             )
             .map((data, i) => {
               return (

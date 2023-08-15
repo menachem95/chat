@@ -1,4 +1,5 @@
 import { createServer } from "http";
+const { ObjectId } = mongoose;
 import socket from "socket.io";
 import express from "express";
 import cors from "cors";
@@ -9,6 +10,7 @@ import dotenv from "dotenv";
 import userManagement from "./routes/userManagement.js";
 import groupManagement from "./routes/groupManagement.js";
 import User from "./models/User.js";
+import Message from "./models/Message.js";
 
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
@@ -37,43 +39,52 @@ io.on("connection", (socket) => {
       await User.create({
         name: userInfo.name,
         id: socket.id,
-        id: socket.id
       });
       const users = await User.find();
-
-    
 
       io.emit("get users", users);
     } catch (err) {
       console.log(err);
-      return err
+      return err;
     }
   });
 
-  socket.on("login", async ({ name }) => {
+  socket.on("login", async (name, cb) => {
     const user = await User.findOneAndUpdate(
       { name },
-      { online: true, id: socket.id, id: socket.id },
+      { online: true, id: socket.id },
       { new: true }
     );
+    console.log(user.id)
+    const messages = await Message.find({
+      $or: [{ from: ObjectId(user._id)  }, { to: ObjectId(user._id) }],
+    });
+    console.log(messages)
+    cb(user, messages);
     // const users = await User.find({"name": { "$ne" : name}});
     const users = await User.find();
 
-    socket.emit("get user", user);
+    // socket.emit("get user", user);
     io.emit("get users", users);
   });
-  socket.on("send message", (message) => {
-  
-    socket.to(message.to).emit("get message", message);
+  socket.on("send message", async (m, cd) => {
+    console.log("m:",m);
+    const message = await Message.create({
+      to: m.to._id,
+      from: m.from,
+      content: m.content,
+    });
+    console.log(message);
+    cd(message);
+
+
+    // socket.to(m.to.id).emit("get message", message);
   });
 
   socket.on("disconnect", async () => {
- 
-
     await User.findOneAndUpdate({ id: socket.id }, { online: false });
     // console.log("user.online:", user?.online)
     const users = await User.find();
-  
 
     io.emit("get users", users);
     console.log(`🔥: ${socket.id} user disconnected`);
