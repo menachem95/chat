@@ -1,5 +1,4 @@
 import { createServer } from "http";
-
 import socket from "socket.io";
 import express from "express";
 import cors from "cors";
@@ -11,7 +10,7 @@ import userManagement from "./routes/userManagement.js";
 import groupManagement from "./routes/groupManagement.js";
 import User from "./models/User.js";
 import Message from "./models/Message.js";
-const { ObjectId } = mongoose.Schema.Types;
+
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
 //   cors: {
@@ -57,7 +56,7 @@ io.on("connection", (socket) => {
     );
     console.log(user.id)
     const messages = await Message.find({
-      $or: [{ from: ObjectId(user._id)  }, { to: ObjectId(user._id) }],
+      $or: [{ from: user._id  }, { to: user._id }],
     });
     console.log(messages)
     cb(user, messages);

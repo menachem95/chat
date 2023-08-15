@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-// const { ObjectId } = mongoose;
-const { ObjectId } = mongoose.Schema.Types;
+const { SchemaTypes } = mongoose;
 
 const MessageSchema = new mongoose.Schema(
   {
@@ -10,14 +9,14 @@ const MessageSchema = new mongoose.Schema(
       default: false,
     },
     from: {
-      type: { type: ObjectId, ref: "User" },
-      // require: true,
+      type: { type: SchemaTypes.ObjectId, ref: "User" },
+      require: true,
     },
 
     to: {
       type: 
         {
-          type: ObjectId,
+          type: SchemaTypes.ObjectId,
           ref: "User",
         },
         // {
