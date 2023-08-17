@@ -11,6 +11,7 @@ const OneUserInList = ({ user }) => {
   const { messages } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onClickHandler = (userData) => {
+   
     const newMessages = messages.map((message) => {
       return {
         ...message,
@@ -23,7 +24,7 @@ const OneUserInList = ({ user }) => {
   };
   const unreadMessages = () => {
     return messages.filter(
-      (message) => message.from === user.id && !message.isRead
+      (message) => message.from === user._id && !message.isRead
     ).length;
   };
 

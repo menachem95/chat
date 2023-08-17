@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { login, updateUserInfo, updateMessages } from "../../../store/userSlice";
+import { login, updateUserInfo, getMessages, updateMessages } from "../../../store/userSlice";
 
 const Login = ({ socket, changeIsRegistered }) => {
   

@@ -25,8 +25,13 @@ const userSlice = createSlice({
       state.current_chat = action.payload;
     },
     updateMessages(state, action) {
-      state.messages =  [...state.messages, action.payload];
+      debugger
+      state.messages =  action.payload;
     },
+    // getMessages(state, action) {
+    //   debugger
+    //   state.messages =  [action.payload];
+    // },
   },
 });
 
@@ -36,6 +41,7 @@ export const {
   getUsers,
   changeCurrent_chat,
   updateMessages,
+  getMessages,
 } = userSlice.actions;
 
 export default userSlice.reducer;

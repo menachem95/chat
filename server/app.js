@@ -77,8 +77,8 @@ io.on("connection", (socket) => {
     console.log(message);
     cd(message);
 
-
-    // socket.to(m.to.id).emit("get message", message);
+// io.to(m.to.id).emit("get message", message);
+    socket.to(m.to.id).emit("get message", message);
   });
 
   socket.on("disconnect", async () => {

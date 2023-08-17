@@ -15,6 +15,8 @@ const Chat = ({ socket }) => {
 
   const contentRef = useRef();
 
+
+
   console.log("messages:", messages);
   const sendMessage = () => {
     const message = {
@@ -25,27 +27,29 @@ const Chat = ({ socket }) => {
       to: { id: current_chat.id, _id: current_chat._id },
     };
     socket.emit("send message", message, (m) => {
-      dispatch(updateMessages(m));
+      dispatch(updateMessages([...messages,m]));
     });
     contentRef.current.value = "";
   };
+
+ 
 
   return (
     <div className={classes.main}>
       {current_chat ? (
         <ScrollToBottom className={classes.chat} initialScrollBehavior="auto">
           {messages
-            .filter(
-              (message) =>
-                message.from === current_chat._id ||
-                message.to === current_chat._id
-            )
+            // .filter(
+            //   (message) =>
+            //     message.from === current_chat._id ||
+            //     message.to === current_chat._id
+            // )
             .map((data, i) => {
               return (
                 <Message
                   key={i}
                   data={data}
-                  yourId={userInfo.id}
+                  yourId={userInfo._id}
                   isLast={i === messages.length - 1}
                 />
               );
