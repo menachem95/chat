@@ -23,14 +23,14 @@ function App() {
 
   useEffect(() => {
     socket.once("get message", (message) => {
-      
+      debugger
       console.log(`message.content: ${message.content}`);
       const newMessages = [
         ...messages,
         {
           ...message,
           isRead:
-            message.isRead || current_chat?.id === message.from ? true : false,
+            message.isRead || current_chat?._id === message.from ? true : false,
         },
       ];
       dispatch(updateMessages(newMessages));

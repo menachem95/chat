@@ -75,10 +75,12 @@ io.on("connection", (socket) => {
       date: m.date
     });
     console.log(message);
+    // socket.to(socket.id).emit("get message", message);
+    socket.to(m.to.id).emit("get message", message);
     cd(message);
 
 // io.to(m.to.id).emit("get message", message);
-    socket.to(m.to.id).emit("get message", message);
+    
   });
 
   socket.on("disconnect", async () => {

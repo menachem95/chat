@@ -25,7 +25,6 @@ const userSlice = createSlice({
       state.current_chat = action.payload;
     },
     updateMessages(state, action) {
-      debugger
       state.messages =  action.payload;
     },
     // getMessages(state, action) {

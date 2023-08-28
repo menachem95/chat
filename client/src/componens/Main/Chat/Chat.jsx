@@ -39,11 +39,11 @@ const Chat = ({ socket }) => {
       {current_chat ? (
         <ScrollToBottom className={classes.chat} initialScrollBehavior="auto">
           {messages
-            // .filter(
-            //   (message) =>
-            //     message.from === current_chat._id ||
-            //     message.to === current_chat._id
-            // )
+            .filter(
+              (message) =>
+                message.from === current_chat._id ||
+                message.to === current_chat._id
+            )
             .map((data, i) => {
               return (
                 <Message
