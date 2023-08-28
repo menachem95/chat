@@ -13,28 +13,30 @@ const MessageSchema = new mongoose.Schema(
       // type: { type: SchemaTypes.ObjectId, ref: "User" },
       // required: true,
     },
+    isRead: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
 
     to: {
-      type: 
-      String
-        // {
-        //   type: SchemaTypes.ObjectId,
-        //   ref: "User",
-        // },
-        // {
-        //   type: SchemaTypes.ObjectId,
-        //   ref: "Group",
-        // },
-      
+      type: String,
+      // {
+      //   type: SchemaTypes.ObjectId,
+      //   ref: "User",
+      // },
+      // {
+      //   type: SchemaTypes.ObjectId,
+      //   ref: "Group",
+      // },
+
       // require: true,
     },
     content: {
       type: String,
       required: true,
     },
-    date: Object
-
-   
+    date: Object,
   },
   { timestamps: true }
 );

@@ -17,4 +17,4 @@ export const getTime = () => {
   const minutes = new Date(Date.now()).getMinutes();
 
   return { year, month, day, weekday, hours, minutes };
-}
+};

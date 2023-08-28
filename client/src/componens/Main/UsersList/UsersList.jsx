@@ -7,19 +7,22 @@ import {
   updateMessages,
 } from "../../../store/userSlice";
 
-const OneUserInList = ({ user }) => {
+const OneUserInList = ({ user, socket }) => {
   const { messages } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onClickHandler = (userData) => {
-   
     const newMessages = messages.map((message) => {
       return {
         ...message,
         isRead: message.isRead || message.from === userData._id ? true : false,
       };
     });
+    console.log("read messages")
 
+    socket.emit("read messages", userData._id);
+    
     dispatch(updateMessages(newMessages));
+
     dispatch(changeCurrent_chat(userData));
   };
   const unreadMessages = () => {
@@ -29,21 +32,27 @@ const OneUserInList = ({ user }) => {
   };
 
   return (
-    
-    <tr 
+    <tr
       key={user.id}
       className={classes.user}
-      onClick={() => onClickHandler({ id: user.id, name: user.name, _id: user._id })}
-    ><td>
-      <div> {user.name}</div>
-      <div>
-        {unreadMessages() !== 0
-          ? ` הודעות שלא נקראו ${unreadMessages()}`
-          : ""}
-      </div>
-      <div className={user.online ? classes.online : classes.notOnline} />
-      {user.online ? <div>מחובר/ת</div> : <div>{`נראה לאחרונה ${user.updatedAt
-}`}</div>}</td>
+      onClick={() =>
+        onClickHandler({ id: user.id, name: user.name, _id: user._id })
+      }
+    >
+      <td>
+        <div> {user.name}</div>
+        <div>
+          {unreadMessages() !== 0
+            ? ` הודעות שלא נקראו ${unreadMessages()}`
+            : ""}
+        </div>
+        <div className={user.online ? classes.online : classes.notOnline} />
+        {user.online ? (
+          <div>מחובר/ת</div>
+        ) : (
+          <div>{`נראה לאחרונה ${user.updatedAt}`}</div>
+        )}
+      </td>
     </tr>
   );
 };
@@ -53,23 +62,23 @@ const UsersList = ({ socket }) => {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-    socket.once("get users", (usersFromSrv) => {
-      
-      console.log("users: ", users);
-            dispatch(getUsers(usersFromSrv.filter(user => user.name !== userInfo.name)));
-    });
+  socket.once("get users", (usersFromSrv) => {
+    console.log("users: ", users);
+    dispatch(
+      getUsers(usersFromSrv.filter((user) => user.name !== userInfo.name))
+    );
+  });
   // }, [users]);
 
   return (
     <div className={classes.main}>
-     <table >
-      <tbody >{users
-        
-        .map((user) => (
-          <OneUserInList key={user.id} user={user} />
-        ))}</tbody>
-    </table>
-      
+      <table>
+        <tbody>
+          {users.map((user) => (
+            <OneUserInList key={user.id} user={user} socket={socket} />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

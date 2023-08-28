@@ -83,6 +83,11 @@ io.on("connection", (socket) => {
     
   });
 
+  socket.on("read messages", async (id) => {
+    console.log("id:",id);
+   await Message.updateMany({from: id}, {isRead: true})
+  })
+
   socket.on("disconnect", async () => {
     await User.findOneAndUpdate({ id: socket.id }, { online: false });
     // console.log("user.online:", user?.online)
