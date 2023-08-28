@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./UsersList.module.css";
+import EVENTS from "../../../utils/events";
 import {
   changeCurrent_chat,
   getUsers,
@@ -19,7 +20,7 @@ const OneUserInList = ({ user, socket }) => {
     });
     console.log("read messages")
 
-    socket.emit("read messages", userData._id);
+    socket.emit(EVENTS.READ_MESSAGES, userData._id);
     
     dispatch(updateMessages(newMessages));
 
@@ -62,7 +63,7 @@ const UsersList = ({ socket }) => {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  socket.once("get users", (usersFromSrv) => {
+  socket.once(EVENTS.GET_USERS, (usersFromSrv) => {
     console.log("users: ", users);
     dispatch(
       getUsers(usersFromSrv.filter((user) => user.name !== userInfo.name))

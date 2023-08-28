@@ -10,7 +10,7 @@ import userManagement from "./routes/userManagement.js";
 import groupManagement from "./routes/groupManagement.js";
 import User from "./models/User.js";
 import Message from "./models/Message.js";
-import EVENTS from "./utils/events.js";
+import EVENTS from "./utils/Events.js";
 
 // const httpServer = createServer();
 // const io = new Server(httpServer, {
@@ -34,7 +34,7 @@ const io = socket(server, {
 
 io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
-  socket.on("register", async (userInfo) => {
+  socket.on(EVENTS.REGISTER, async (userInfo) => {
     try {
       await User.create({
         name: userInfo.name,
@@ -42,14 +42,14 @@ io.on("connection", (socket) => {
       });
       const users = await User.find();
 
-      io.emit("get users", users);
+      io.emit(EVENTS.GET_USERS, users);
     } catch (err) {
       console.log(err);
       return err;
     }
   });
 
-  socket.on("login", async (name, cb) => {
+  socket.on(EVENTS.LOGIN, async (name, cb) => {
     const user = await User.findOneAndUpdate(
       { name },
       { online: true, id: socket.id },
@@ -65,9 +65,9 @@ io.on("connection", (socket) => {
     const users = await User.find();
 
     // socket.emit("get user", user);
-    io.emit("get users", users);
+    io.emit(EVENTS.GET_USERS, users);
   });
-  socket.on("send message", async (m, cd) => {
+  socket.on(EVENTS.SEND_MESSAGE, async (m, cd) => {
     console.log("m:",m);
     const message = await Message.create({
       to: m.to._id,
@@ -77,14 +77,14 @@ io.on("connection", (socket) => {
     });
     console.log(message);
     // socket.to(socket.id).emit("get message", message);
-    socket.to(m.to.id).emit("get message", message);
+    socket.to(m.to.id).emit(EVENTS.GET_MESSAGE, message);
     cd(message);
 
 // io.to(m.to.id).emit("get message", message);
     
   });
 
-  socket.on("read messages", async (id) => {
+  socket.on(EVENTS.READ_MESSAGES, async (id) => {
     console.log("id:",id);
    await Message.updateMany({from: id}, {isRead: true})
   })
@@ -94,7 +94,7 @@ io.on("connection", (socket) => {
     // console.log("user.online:", user?.online)
     const users = await User.find();
 
-    io.emit("get users", users);
+    io.emit(EVENTS.GET_USERS, users);
     console.log(`🔥: ${socket.id} user disconnected`);
   });
 });

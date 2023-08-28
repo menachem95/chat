@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, updateUserInfo } from "../../../store/userSlice";
+import EVENTS from "../../../utils/events";
 
 const Register = ({ socket, changeIsRegistered }) => {
  
@@ -12,7 +13,7 @@ const Register = ({ socket, changeIsRegistered }) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const userInfo = { name: nameRef.current.value };
-    socket.emit("register", userInfo)
+    socket.emit(EVENTS.REGISTER, userInfo)
     changeIsRegistered(true)
   };
 

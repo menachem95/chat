@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, updateUserInfo, getMessages, updateMessages } from "../../../store/userSlice";
+import EVENTS from "../../../utils/events";
 
 const Login = ({ socket, changeIsRegistered }) => {
   
@@ -21,7 +22,7 @@ const Login = ({ socket, changeIsRegistered }) => {
 
     // const userInfo = { name: nameRef.current.value };
 
-    socket.emit("login", nameRef.current.value, (userInfo, messages) => {
+    socket.emit(EVENTS.LOGIN, nameRef.current.value, (userInfo, messages) => {
       console.log(userInfo)
       dispatch(updateUserInfo(userInfo));
       dispatch(updateMessages( messages));

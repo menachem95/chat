@@ -5,7 +5,8 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import Message from "../../Message/Message";
 import { useSelector, useDispatch } from "react-redux";
 import { updateMessages } from "../../../store/userSlice";
-import { getTime } from "../../../utils";
+import { getTime } from "../../../utils/utils";
+import EVENTS from "../../../utils/events";
 
 const Chat = ({ socket }) => {
   const { userInfo, users, current_chat, messages } = useSelector(
@@ -26,7 +27,7 @@ const Chat = ({ socket }) => {
 
       to: { id: current_chat.id, _id: current_chat._id },
     };
-    socket.emit("send message", message, (m) => {
+    socket.emit(EVENTS.SEND_MESSAGE, message, (m) => {
       dispatch(updateMessages([...messages,m]));
     });
     contentRef.current.value = "";

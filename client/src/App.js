@@ -4,10 +4,13 @@ import Entry from "./componens/Entry/Entry/Entry";
 import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
 import Main from "./componens/Main/Main/Main";
+import EVENTS from "./utils/events"
 
 import { updateMessages } from "./store/userSlice";
 
 const socket = io.connect("http://localhost:8080");
+
+
 
 
 function App() {
@@ -22,7 +25,7 @@ function App() {
 
 
   useEffect(() => {
-    socket.once("get message", (message) => {
+    socket.once(EVENTS.GET_MESSAGE, (message) => {
       debugger
       console.log(`message.content: ${message.content}`);
       const newMessages = [
