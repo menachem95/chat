@@ -15,7 +15,7 @@ const OneUserInList = ({ user }) => {
     const newMessages = messages.map((message) => {
       return {
         ...message,
-        isRead: message.isRead || message.from === userData.id ? true : false,
+        isRead: message.isRead || message.from === userData._id ? true : false,
       };
     });
 
