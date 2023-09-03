@@ -8,8 +8,8 @@ const Message = ({ data, yourId, isLast }) => {
       <div
         className={`${classes.main} ${yourId === data.from ? classes.you : ""} ${isLast ? classes.last : ""}`}
       >
-        <div className={classes.message}>{data.content} </div>
-        {/* <div className={classes.time}>{`${data.date.hours}:${data.date.minutes}`}</div> */}
+        <div className={classes.content}>{data.content} </div>
+        <div className={classes.time}>{`${data.date.hours}:${data.date.minutes}`}</div>
       </div>
     </>
   );

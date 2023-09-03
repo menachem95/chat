@@ -57,6 +57,7 @@ const Chat = ({ socket }) => {
             })}
           <div className={classes.footer}>
             <input
+            style={{direction:"rtl", unicodeBidi:"bidi-override",}}
               autoFocus
               type="text"
               ref={contentRef}

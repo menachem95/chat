@@ -1,24 +1,40 @@
 .main {
- 
-  background-color: rgb(20, 49, 197);
   display: block;
-  width: 100px;
-}
+  /* width: 150px; */
+  width: fit-content ;
+  max-width: 65%;
+  /* height: fit-content; */
+  /* height: 50px; */
+  /* background-color: aqua; */
+  margin-top: 20px;
 
-.message {
-    
-
-}
-
-.time {
+  background-color: brown;
 }
 
 .you {
-  background-color: rgb(194, 197, 20);
   margin-left: auto;
   margin-right: 0;
-   
+}
+
+.content {
   
+  border-radius: 0% 1vh 1vh 0%;
+  background-color: rgb(20, 197, 100);
+  /* height: 3vh; */
+  height: fit-content;
+  padding: 2%;
+  text-align: end;
+}
+
+.you .content {
+  border-radius: 1vh 0% 0% 1vh;
+  background-color: rgb(20, 197, 171);
+  
+  text-align: start;
+}
+
+.time {
+  font-size: 90%;
 }
 
 .last {
